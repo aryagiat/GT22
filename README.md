@@ -68,7 +68,7 @@ Players can collect different cars from the shop which can be acquired by collec
       
     - Player's car program.
       - Hitbox of the car
-      - Type of car alters its speed(upwards)
+      - Type of car alters its speed(upwards); Extract car speed from car file
   
     - Incoming traffic car program.
       - Hitbox of the incoming traffic cars
