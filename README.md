@@ -39,7 +39,7 @@ Players can collect different cars from the shop which can be acquired by collec
 **4.  File input / output:**
 
     - Highscore (line 1) and coin total (line 2) saving file in which new highscores and coin in/decrements are outputted to. It is also an input file to show the highscore and coin total on the console screen.
-    - Car file to define different cars' specifications (i.e. speed) and if it is unlocked or not.
+    - Car file to define different cars' specifications (i.e. health and appearance) and if it is unlocked or not.
     
     //- Coin file in which the number of coins acquired from a run are added to the file. It is also an input file to show the amount of coins that the player have.//
     
@@ -62,13 +62,14 @@ Players can collect different cars from the shop which can be acquired by collec
     - Game screen program.
       - Generating incoming cars with random position (1/2 of 3 lanes)
       - Generating coins
+      - Generating boost
       - Current position of player's car and key presses to move the car
       - Point counter
       - Coin counter
       
     - Player's car program.
       - Hitbox of the car
-      - Type of car alters its speed(upwards); Extract car speed from car file
+      - Type of car alters its health and appearance; Extract from car file
   
     - Incoming traffic car program.
       - Hitbox of the incoming traffic cars
