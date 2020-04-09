@@ -1,6 +1,7 @@
 ***ENGG1340 GAME PROJECT - GROUP 22***
 
 **Team Members:**
+
 Giat, Arya Nagatama  3035662663;
 Lioe, Andrew Tian    3035666633;
 
@@ -15,6 +16,7 @@ Players can collect different cars from the shop which can be acquired by collec
 
 
 **Features / Functions:**
+
 **1.  Generation of random game sets or events:**
     - Random placements of incoming traffic on one of the 3 lanes.
     - Random number of incoming traffic at once (1 or 2 cars at once).
