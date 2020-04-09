@@ -44,7 +44,7 @@ Players can collect different cars from the shop which can be acquired by collec
     //- Coin file in which the number of coins acquired from a run are added to the file. It is also an input file to show the amount of coins that the player have.//
     
 
-**5.  Program codes in multiple files:**
+**5.  Program codes in multiple modules:**
 
     - Start / home screen program.
       - Start button
