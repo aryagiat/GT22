@@ -1,4 +1,6 @@
 ====================================
+|                  High Score:1340 |
+|                                  |
 |   -           __                 |
 | --          ~( @\   \            |
 |---   _________]_[__/_>________   |
@@ -13,11 +15,11 @@
 |     \____/ /_/  /____/____/      | 
 |                                  |
 |                                  |
-|         *** START                |
+|          -> START                |
 |             GARAGE               |
 |             INSTRUCTIONS         |
 |             EXIT                 |
 |                                  |
-|      use up and down arrow       |
+|      use up and down arrows      |
 |      press enter to select       |
 ====================================
