@@ -7,8 +7,9 @@
 using namespace std;
 
 
-char start_screen[24][37] = {
+char start_screen[25][37] = {
   "====================================",
+  "                                    ",
   "Score:50             Highscore:1340|",
   "|   -           __                 |",
   "| --          ~( @\\   \\            |",
@@ -45,35 +46,35 @@ int main()
   while(1){
     system("tput clear");
     // Printing out the screen
-    for (int i = 0; i < 23; i++){
+    for (int i = 0; i < 25; i++){
       cout << start_screen[i] << endl;
     }
 
     switch(option){
       case(0):
-        start_screen[15][10] = '>';
-        start_screen[15][11] = '>';
-        start_screen[15][12] = '>';
-        break;
-      case(1):
-        start_screen[16][10] = '>';
-        start_screen[16][11] = '>';
-        start_screen[16][12] = '>';
-        break;
-      case(2):
         start_screen[17][10] = '>';
         start_screen[17][11] = '>';
         start_screen[17][12] = '>';
         break;
-      case(3):
+      case(1):
         start_screen[18][10] = '>';
         start_screen[18][11] = '>';
         start_screen[18][12] = '>';
         break;
+      case(2):
+        start_screen[18][10] = '>';
+        start_screen[18][11] = '>';
+        start_screen[18][12] = '>';
+        break;
+      case(3):
+        start_screen[19][10] = '>';
+        start_screen[19][11] = '>';
+        start_screen[19][12] = '>';
+        break;
       default:
-        start_screen[15][10] = '>';
-        start_screen[15][11] = '>';
-        start_screen[15][12] = '>';
+        start_screen[17][10] = '>';
+        start_screen[17][11] = '>';
+        start_screen[17][12] = '>';
         break;
     }
     system("pause>nul");
@@ -93,14 +94,6 @@ int main()
 }
 
 void clearStar(){
-  start_screen[15][10] = ' ';
-  start_screen[15][11] = ' ';
-  start_screen[15][12] = ' ';
-
-  start_screen[16][10] = ' ';
-  start_screen[16][11] = ' ';
-  start_screen[16][12] = ' ';
-
   start_screen[17][10] = ' ';
   start_screen[17][11] = ' ';
   start_screen[17][12] = ' ';
@@ -108,7 +101,15 @@ void clearStar(){
   start_screen[18][10] = ' ';
   start_screen[18][11] = ' ';
   start_screen[18][12] = ' ';
-}
+
+  start_screen[19][10] = ' ';
+  start_screen[19][11] = ' ';
+  start_screen[19][12] = ' ';
+
+  start_screen[20][10] = ' ';
+  start_screen[20][11] = ' ';
+  start_screen[20][12] = ' ';
+  
 
 void DetectKey(int &option){
   int key;
