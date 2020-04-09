@@ -7,8 +7,9 @@
 using namespace std;
 
 
-char start_screen[23][37] = {
+char start_screen[24][37] = {
   "====================================",
+  "Score:50             Highscore:1340|",
   "|   -           __                 |",
   "| --          ~( @\\   \\            |",
   "|---   _________]_[__/_>________   |",
@@ -28,8 +29,8 @@ char start_screen[23][37] = {
   "|             INSTRUCTIONS         |",
   "|             EXIT                 |",
   "|                                  |",
-  "|      use up and down arrow       |",
-  "|      press enter to select       |",
+  "|     *use up and down arrow*      |",
+  "|     *press enter to select*      |",
   "===================================="
 };
 
@@ -50,29 +51,29 @@ int main()
 
     switch(option){
       case(0):
-        start_screen[15][10] = '*';
-        start_screen[15][11] = '*';
-        start_screen[15][12] = '*';
+        start_screen[15][10] = '>';
+        start_screen[15][11] = '>';
+        start_screen[15][12] = '>';
         break;
       case(1):
-        start_screen[16][10] = '*';
-        start_screen[16][11] = '*';
-        start_screen[16][12] = '*';
+        start_screen[16][10] = '>';
+        start_screen[16][11] = '>';
+        start_screen[16][12] = '>';
         break;
       case(2):
-        start_screen[17][10] = '*';
-        start_screen[17][11] = '*';
-        start_screen[17][12] = '*';
+        start_screen[17][10] = '>';
+        start_screen[17][11] = '>';
+        start_screen[17][12] = '>';
         break;
       case(3):
-        start_screen[18][10] = '*';
-        start_screen[18][11] = '*';
-        start_screen[18][12] = '*';
+        start_screen[18][10] = '>';
+        start_screen[18][11] = '>';
+        start_screen[18][12] = '>';
         break;
       default:
-        start_screen[15][10] = '*';
-        start_screen[15][11] = '*';
-        start_screen[15][12] = '*';
+        start_screen[15][10] = '>';
+        start_screen[15][11] = '>';
+        start_screen[15][12] = '>';
         break;
     }
     system("pause>nul");
