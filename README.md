@@ -3,6 +3,7 @@
 **Team Members:**
 
 Giat, Arya Nagatama  3035662663;
+
 Lioe, Andrew Tian    3035666633;
 
 
@@ -18,23 +19,28 @@ Players can collect different cars from the shop which can be acquired by collec
 **Features / Functions:**
 
 **1.  Generation of random game sets or events:**
+
     - Random placements of incoming traffic on one of the 3 lanes.
     - Random number of incoming traffic at once (1 or 2 cars at once).
     - Random placements of a coin on one of the 3 lanes.
     
 **2.  Data structure for storing game status:**
+
     -  x and y coordinates of the player and the incoming traffic
     - if the x and y coordinates of the player and incoming traffic intercepts, the game ends
     
 **3.  Dynamic memory management:**
+
     - 
     
 **4.  File input / output:**
+
     - Highscore saving file in which new highscores are outputted to. It is also an input file to show the high score on the console screen.
     - Coin file in which the number of coins acquired from a run are added to the file. It is also an input file to show the amount of coins that the player have.
     
 
 **5.  Program code in multiple files:**
+
     - Start / home screen program.
       - Start button
       - Selecting car button
