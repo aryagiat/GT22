@@ -1,5 +1,5 @@
 ====================================
-|                  High Score:1340 |
+| Coins:50         High Score:1340 |
 |                                  |
 |   -           __                 |
 | --          ~( @\   \            |
@@ -20,6 +20,6 @@
 |             INSTRUCTIONS         |
 |             EXIT                 |
 |                                  |
-|      use up and down arrows      |
-|      press enter to select       |
+|      *use up and down arrows*    |
+|      *press enter to select*     |
 ====================================
