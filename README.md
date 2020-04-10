@@ -35,14 +35,12 @@ Players can collect different cars from the shop which can be acquired by collec
 **3.  Dynamic memory management:**
 
     - Dynamic array to keep the highscore and coins obtained and to output those to the screen map.
+    - Queue to address a revolving garage. E.g.- the latest chosen car will be on the far left of the screen (index 0) and the most seldomly used car at the far right of the screen (index max).
     
 **4.  File input / output:**
 
     - Highscore (line 1) and coin total (line 2) saving file in which new highscores and coin in/decrements are outputted to. It is also an input file to show the highscore and coin total on the console screen.
     - Car file to define different cars' specifications (i.e. health and appearance) and if it is unlocked or not.
-    
-    //- Coin file in which the number of coins acquired from a run are added to the file. It is also an input file to show the amount of coins that the player have.//
-    
 
 **5.  Program codes in multiple modules:**
 
