@@ -34,7 +34,7 @@ Players can collect different cars from the shop which can be acquired by collec
     
 **3.  Dynamic memory management:**
 
-    - Dynamic array to keep the highscore and coins obtained and to output those to the screen map.
+    - //Dynamic array to keep the highscore and coins obtained and to output those to the screen map\\.
     - Queue to address a revolving garage. E.g.- the latest chosen car will be on the far left of the screen (index 0) and the most seldomly used car at the far right of the screen (index max).
     
 **4.  File input / output:**
