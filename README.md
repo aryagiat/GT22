@@ -34,7 +34,7 @@ Players can collect different cars from the shop which can be acquired by collec
     
 **3.  Dynamic memory management:**
 
-    - 
+    - Dynamic array to keep the highscore and coins obtained and to output those to the screen map.
     
 **4.  File input / output:**
 
