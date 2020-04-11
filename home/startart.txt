@@ -14,7 +14,7 @@
 |     \____/ /_/  /____/____/      | 
 |                                  |
 |                                  |
-|         ->  START                |
+|          >  START                |
 |             GARAGE               |
 |             INSTRUCTIONS         |
 |             RESET                |
