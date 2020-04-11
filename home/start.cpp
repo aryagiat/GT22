@@ -3,13 +3,13 @@
 #include <string>
 #include <vector>
 #include <cstring>
-#include "keylog.h"
+#include "../keylog.h"
 
 using namespace std;
 
 int main(){
   ifstream fin;
-  fin.open("startart.txt");
+  fin.open("./home/startart.txt");
   if (fin.fail()){
     cout << "Fail in File opening" << endl;
     exit(1);
