@@ -5,7 +5,11 @@
 using namespace std;
 
 int main(){
-  start();
+  while (true){
+    start();
+    cout << "MAIN" << endl;
+    char key = keylog();
+  }
 
   return 0;
 }
