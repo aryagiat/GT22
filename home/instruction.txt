@@ -1,0 +1,25 @@
+====================================
+|           ABOUT GT22:            |
+|  GT22 is an endless runner car   |
+|  racing game. Overtake as many   |
+|  incoming cars without crashing. |
+|                                  |
+|                                  |
+|           INSTRUCTIONS:          |
+| There are 3 lanes. Cars will     |
+| randomly appear on a lane.       |
+| Overtake incoming cars by moving |
+| to a different lane.             |
+|                                  |
+|     press 'a' to move left       |
+|     press 'd' to move right      |
+|                                  |
+|  Collect coins to buy new cars   |
+|  Do not crash! Good Luck Racer!  |
+|                                  |
+|             GAME BY:             |
+|       Giat, Arya Nagatama        |
+|         Lioe, Andrew Tian        |
+|                                  |
+|  *press any key to return home*  |
+====================================

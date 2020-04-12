@@ -12,7 +12,7 @@ const int ROW = 25;
 const int COL = 37;
 
 void ClearArrow(char screen[ROW][COL]);
-void PerformAction(int option);
+void PerformAction(int option, char screen[][COL]);
 
 int start(){
   // Opening the start art graphics design .txt file
@@ -32,6 +32,7 @@ int start(){
     strcpy(screen[ind], str.c_str()); // converting string into a char array
     ind++;
   }
+  art.close();
 
   // Opening the stat file to see highscore and coins.
   ifstream stat;
@@ -43,6 +44,7 @@ int start(){
   // Reading the highscore and coins.
   string highscore, coin;
   stat >> highscore >> coin; // Reading from file to the string variables respectively.
+  stat.close();
   int highscore_size = highscore.size();
   int coin_size = coin.size();
   // Replacing the empty space on the screen with a highscore value
@@ -87,19 +89,21 @@ int start(){
 
       // enter button to perform actions depending on the option.
       case '\n':
-        PerformAction(option);
+        if (option == 1){
+          return 0;
+        }
+        else{
+          PerformAction(option, screen);
+        }
         break;
     }
   }
-
-  char c;
-  c = keylog();
-  cout << "you output: " << c << endl;
-
-  art.close();
-  stat.close();
-
   return 0;
+}
+
+// Function to read the start screen art. The input is a the screen map
+void ReadArt(char screen[][COL]){
+  
 }
 
 // Function to clear the arrow on the screen by making column 11 a blank space on rows where there are options. The input of this function is the screen art map.
@@ -110,17 +114,9 @@ void ClearArrow(char screen[ROW][COL]){
 }
 
 // Function that performs action depending on the option selected by user. The input of this function is the option that the user selects.
-void PerformAction(int option){
+void PerformAction(int option, char screen[][COL]){
   char confirm;
   switch (option){
-    // START
-    case 1:
-    {
-      // Start game
-      cout << "Start" << endl;
-      exit(1);
-      break;
-    }
 
     // GARAGE
     case 2:
@@ -134,26 +130,51 @@ void PerformAction(int option){
     // Instructions
     case 3:
     {
-      // Show Instructions here
-      cout << "Press q to go back" << endl;
-      confirm = keylog();
-      while (confirm != 'q'){
-        confirm = keylog();
+      // Read from instruction.txt file
+      ifstream instr;
+      instr.open("./home/instruction.txt");
+      char instruction[ROW][COL];
+      string str;
+      int row_index = 0;
+      while (getline(instr, str)){
+        strcpy(instruction[row_index], str.c_str());
+        row_index++;
       }
+      instr.close();
+      // Outputng to screen
+      system("clear");
+      for (int i = 0; i < ROW; i++){
+        cout << instruction[i] << endl;
+      }
+      // Wait for user input to continue
+      confirm = keylog();
       break;
     }
 
     // Reset game data
     case 4:
     {
-      cout << "Are you sure you want to reset game data? (y/n)" << endl;
-      confirm = keylog();
-      if (confirm == 'y'){
-        // ERASE DATA
-        cout << "Erasing!" << endl;
+      // Printing confirmation message
+      system("clear"); //Clearing console screen.
+      // Printing the screen
+      for (int i = 0; i < ROW -3; i++){
+        cout << screen[i] << endl;
       }
-      if (confirm == 'n'){
-        break;
+      cout << "|  Are you sure you want to reset? |" << endl;
+      cout << "|              (y/n)               |" << endl;
+      cout << "====================================" << endl;
+      // Getting confirmation
+      confirm = keylog();
+      while (confirm != 'n'){
+        if (confirm == 'y'){
+          ofstream reset;
+          reset.open("./home/stat.txt");
+          reset << 0 << endl;
+          reset << 0;
+          reset.close();
+          break;
+        }
+        confirm = keylog();
       }
       break;
     }
@@ -161,13 +182,21 @@ void PerformAction(int option){
     // EXIT
     case 5:
     {
-      cout << "Are you sure you want to exit? (y/n)" << endl;
-      confirm = keylog();
-      if (confirm == 'y'){
-        exit(1);
+      // Printing confirmation message
+      system("clear"); //Clearing console screen.
+      // Printing the screen
+      for (int i = 0; i < ROW -3; i++){
+        cout << screen[i] << endl;
       }
-      if (confirm == 'n'){
-        break;
+      cout << "|  Are you sure you want to exit?  |" << endl;
+      cout << "|              (y/n)               |" << endl;
+      cout << "====================================" << endl;
+      // Getting confirmation
+      confirm = keylog();
+      while (confirm != 'n'){
+        if (confirm == 'y')
+          exit(1);
+        confirm = keylog();
       }
       break;
     }
