@@ -9,6 +9,12 @@ start.o: ./home/start.cpp keylog.h
 start: keylog.o start.o
 	g++ $(FLAGS) $^ -o $@
 
+main.o: main.cpp keylog.h ./home/start.h
+	g++ $(FLAGS) -c $<
+
+main: keylog.o start.o main.o
+	g++ $(FLAGS) $^ -o $@
+
 clean:
 	rm -f start *.o
 
