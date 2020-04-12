@@ -16,6 +16,6 @@ main: keylog.o start.o main.o
 	g++ $(FLAGS) $^ -o $@
 
 clean:
-	rm -f start *.o
+	rm -f start main *.o
 
 .PHONY: clean
