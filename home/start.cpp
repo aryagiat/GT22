@@ -14,7 +14,7 @@ const int COL = 37;
 void ClearArrow(char screen[ROW][COL]);
 void PerformAction(int option);
 
-int main(){
+int start(){
   // Opening the start art graphics design .txt file
   ifstream art;
   art.open("./home/startart.txt");
