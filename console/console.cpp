@@ -38,18 +38,32 @@ struct Coordinate{
 Coordinate car1; // coordinates for incoming car 1
 Coordinate car2; // coordinates for incoming car 2
 Coordinate user; // coordinates for the user's car
+Coordinate coin; // coordinates for the coin
 bool game_running = true; // to check whether game is still running
 int score = 0; // starting score on a single run
+int coins = 0;
 int delay = 100000; // animation delay which controls the speed of the incoming vehicles
+char CARSHAPE = 'A';
 
 
-// Function to print the map to the screen;
+// Function to print the map to the screen.
 void PrintMap(){
 	for (int i = 0; i < 19; i++){
 		cout << map[i] << endl;
 	}
 }
 
+// Function to spawn coins randomly.
+void SpawnCoin(){
+	int bias = rand()%100 + 1; // If bias < 60, it will spawn a coin. Otherwise it wont spawn a coin.
+	if (bias <= 60){
+		coin.x = (rand()%3 + 1) * 6 - 3; // Spawns coin on a random lane.
+		coin.y = rand()%6+1; // Spawns coin in a random y coordinate from 1-6.
+	}
+	else{
+		coin.x = 99; // Coin will not spawn if the x coordinate is 99.
+	}
+}
 
 // Void function that spawns a single incoming traffic randomly on a lane.
 void SingleTraffic(){
@@ -60,22 +74,39 @@ void SingleTraffic(){
 	lane = rand()%3 + 1; // Selecting a random lane to spawn the incoming car.
 	car1.x = lane * 6 - 3; // Converting lane 1/2/3 into the x axis of the map 3,9,15 respectively.
 	car1.y = 0; // car spawns at y axis 0.
+	coin.y = 0; // Initializing coin y coordinate as 0.
+
+	SpawnCoin(); // Randomly decides whether coin will be spawned or not.
 
 	// Loop while the incoming car is still in the screen.
 	while (in_screen){
 		system("clear"); // clear console screen
 		car1.y++; // move the incoming car down the screen.
+		// Check whether coin is spawned. If coin.x == 99, coin is not spawned. If coin is spawned, move coin down the screen
+		if (coin.x != 99 && coin.y < 15){
+			coin.y++;
+		}
+		else{
+			coin.x = 99; // Despawning coin once it leaves the screen.
+		}
 
 		// If the car is still within the screen:
 		if (car1.y < 16){
 			map[car1.y][car1.x] = '^'; // Spawning the car at its respective x and y coordinates.
+			if (coin.x != 99 && coin.y < 15){
+					map[coin.y][coin.x] = '.'; // Spawning the coin at its respective x and y coordinates.
+			}
 			PrintMap(); // printing the map.
 			cout << "Score: " << score << endl;
+			cout << "Coins: " << coins << endl;
 			cout << "car1.x: " << car1.x << endl;
 			cout << "car1.y: " << car1.y << endl;
 			cout << "user.x: " << user.x << endl;
 			cout << "user.y: " << user.y << endl;
-			map[car1.y][car1.x] = ' '; // remove the trail.
+			map[car1.y][car1.x] = ' '; // Remove the car trail.
+			if (coin.x != 99 && coin.y < 15){
+					map[coin.y][coin.x] = ' '; // Removing coin trail.
+			}
 		}
 		// If the car has left the screen.
 		else{
@@ -84,10 +115,16 @@ void SingleTraffic(){
 			in_screen = false; // car has left the screen.
 		}
 
-		// Checking for collision between the incoming car and the user. If they collide, y=15 of the map will all be empty.
+		// Checking for collision between the incoming car and the user.
 		if (user.x == car1.x && user.y == car1.y){
 			game_running = false; // ends the game
 			system("clear");
+		}
+
+		// Checking for collision between coin and the user.
+		if (user.x == coin.x && user.y == coin.y){
+			coins++; // Successfuly gained a coin.
+			map[user.y][user.x] = CARSHAPE;
 		}
 
 		// Setting the speed of the incoming vehicle. As the score increase, the speed will be faster.
@@ -127,6 +164,7 @@ void DoubleTraffic(){
 			map[car1.y][car2.x] = '^'; // Spawning car2 at its coordinates
 			PrintMap(); // printing the map.
 			cout << "Score: " << score << endl;
+			cout << "Coins: " << coins << endl;
 			cout << "car1.x: " << car1.x << "  car2.x: " << car2.x << endl;
 			cout << "car.y: " << car1.y << endl;
 			cout << "user.x: " << user.x << endl;
@@ -141,7 +179,7 @@ void DoubleTraffic(){
 			in_screen = false; // cars have left the screen.
 		}
 
-		// Checking for collision between the incoming cars and the user. If they collide, y=15 of the map will all be empty.
+		// Checking for collision between the incoming cars and the user.
 		if ((user.x == car1.x && user.y == car1.y) || (user.x == car2.x && user.y == car1.y)){
 			game_running = false; // ends the game
 		}
@@ -212,7 +250,7 @@ void PlayerMovement(){
 		}
 
 		// Update the coordinates of the car.
-		map[user.y][user.x] = 'A'; // the shape of the car is 'A'.
+		map[user.y][user.x] = CARSHAPE; // the shape of the car is 'A'.
 	}
 }
 
@@ -232,5 +270,6 @@ int main(){
 	// Once game_running is false
 	cout << "you crashed!" << endl;
 	cout << "Your score is: " << score - 1 << endl;
+	cout << "Your coin is: " << coins << endl;
 	return 0;
 }
