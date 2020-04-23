@@ -2,7 +2,7 @@
 #include <cstdlib>  //rand, srand
 #include <ctime>    //time
 #include <unistd.h> //usleep
-#include "keylog.h" //keylog
+#include "../keylog.h" //keylog
 #include <pthread.h> //pthread
 
 using namespace std;
@@ -41,7 +41,6 @@ Coordinate user; // coordinates for the user's car
 bool game_running = true; // to check whether game is still running
 int score = 0; // starting score on a single run
 int delay = 100000; // animation delay which controls the speed of the incoming vehicles
-
 
 
 // Function to print the map to the screen;
@@ -86,7 +85,7 @@ void SingleTraffic(){
 		}
 
 		// Checking for collision between the incoming car and the user. If they collide, y=15 of the map will all be empty.
-		if (map[15][3] == ' ' && map[15][9] == ' ' &&map[15][15] == ' '){
+		if (user.x == car1.x && user.y == car1.y){
 			game_running = false; // ends the game
 			system("clear");
 		}
@@ -143,7 +142,7 @@ void DoubleTraffic(){
 		}
 
 		// Checking for collision between the incoming cars and the user. If they collide, y=15 of the map will all be empty.
-		if (map[15][3] == ' ' && map[15][9] == ' ' &&map[15][15] == ' '){
+		if ((user.x == car1.x && user.y == car1.y) || (user.x == car2.x && user.y == car1.y)){
 			game_running = false; // ends the game
 		}
 
