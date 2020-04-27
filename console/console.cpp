@@ -4,7 +4,6 @@
 #include <unistd.h> //usleep
 #include "../keylog.h" //keylog
 #include <pthread.h> //pthread
-#include "console.h"
 
 using namespace std;
 
@@ -273,4 +272,8 @@ int consoleMain(){ //cannot have function called main() when linking
 	cout << "Your score is: " << score - 1 << endl;
 	cout << "Your coin is: " << coins << endl;
 	return 0;
+}
+
+int main(){
+    consoleMain();
 }
