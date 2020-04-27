@@ -5,8 +5,10 @@
 #include <vector>  // vector
 #include <cstring> // strcpy
 #include "../keylog.h" // keylog
+#include "../console/console.h" //connect to console.cpp program
 
 using namespace std;
+
 
 const int ROW = 25;
 const int COL = 37;
@@ -18,11 +20,9 @@ void ClearArrow(char screen[][COL]); // Function to clear the arrow on the scree
 void PerformAction(int option, char screen[][COL]); // Function that performs action depending on the option selected by user. The input of this function is the option that the user selects and the screen map.
 
 
-
-
 // ==================================
 // === main function of start.cpp ===
-int start(){
+int start(){ //originally start()
   char screen[ROW][COL]; // screen made out of a 25 by 37 character map
   ReadArt(screen); // reading from startart.txt
 
@@ -89,7 +89,7 @@ int start(){
 void ReadArt(char screen[][COL]){
   // Opening the start art graphics design .txt file
   ifstream art;
-  art.open("./home/startart.txt");
+  art.open("Desktop/startart.txt"); //originally ./home/startart.txt
   if (art.fail()){
     cout << "Fail in art opening" << endl;
     exit(1);
@@ -110,7 +110,7 @@ void ReadArt(char screen[][COL]){
 void ReadStat(char screen[][COL]){
   // Opening the stat file to see highscore and coins.
   ifstream stat;
-  stat.open("./home/stat.txt");
+  stat.open("Desktop/stat.txt"); //originally ./home/stat.txt
   if (stat.fail()){
     cout << "Fail in stat opening" << endl;
     exit(1);
@@ -149,6 +149,11 @@ void ClearArrow(char screen[ROW][COL]){
 void PerformAction(int option, char screen[][COL]){
   char confirm;
   switch (option){
+    case 1:
+    {
+        //start console game
+        consoleMain();
+    }
 
     // GARAGE
     case 2:
@@ -164,7 +169,7 @@ void PerformAction(int option, char screen[][COL]){
     {
       // Read from instruction.txt file
       ifstream instr;
-      instr.open("./home/instruction.txt");
+      instr.open("Desktop/instruction.txt"); //originally ./home/instruction.txt
       char instruction[ROW][COL];
       string str;
       int row_index = 0;

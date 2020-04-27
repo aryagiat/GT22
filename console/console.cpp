@@ -4,6 +4,7 @@
 #include <unistd.h> //usleep
 #include "../keylog.h" //keylog
 #include <pthread.h> //pthread
+#include "console.h"
 
 using namespace std;
 
@@ -256,7 +257,7 @@ void PlayerMovement(){
 
 
 // Main function.
-int main(){
+int consoleMain(){ //cannot have function called main() when linking
 	srand(time(NULL)); // Generating random seed
 
 	// Using multithreading to run 2 functions at the same time.
