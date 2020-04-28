@@ -256,7 +256,7 @@ void PlayerMovement(){
 
 
 // Main function.
-int consoleMain(){ //cannot have function called main() when linking
+int consoleMain(){ //cannot have 2 functions called main() when linking
 	srand(time(NULL)); // Generating random seed
 
 	// Using multithreading to run 2 functions at the same time.
@@ -272,8 +272,4 @@ int consoleMain(){ //cannot have function called main() when linking
 	cout << "Your score is: " << score - 1 << endl;
 	cout << "Your coin is: " << coins << endl;
 	return 0;
-}
-
-int main(){
-    consoleMain();
 }

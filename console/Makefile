@@ -3,7 +3,7 @@ FLAGS = -pedantic-errors -std=c++11
 keylog.o: ../keylog.cpp ../keylog.h
 	g++ $(FLAGS) -c $<
 
-console.o: console.cpp ../keylog.h console.h
+console.o: console.cpp ../keylog.h
 	g++ $(FLAGS) -c $<
 
 console: keylog.o console.o
@@ -13,3 +13,6 @@ clean:
 	rm -f console *.o
 
 .PHONY: clean
+
+
+nothing: ./console/console.h

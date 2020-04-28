@@ -5,7 +5,7 @@
 #include <vector>  // vector
 #include <cstring> // strcpy
 #include "../keylog.h" // keylog
-#include "../console/console.h" //connect to console.cpp program
+#include "../console/console.cpp" //connect to console.cpp program
 
 using namespace std;
 
@@ -22,7 +22,7 @@ void PerformAction(int option, char screen[][COL]); // Function that performs ac
 
 // ==================================
 // === main function of start.cpp ===
-int start(){ //originally start()
+int main(){ //originally start(); should have at least one main()
   char screen[ROW][COL]; // screen made out of a 25 by 37 character map
   ReadArt(screen); // reading from startart.txt
 
@@ -64,8 +64,9 @@ int start(){ //originally start()
       case '\n':
       {
         if (option == 1){
-          // Start Playing.
-          return 0;
+            // Start Playing.
+            PerformAction(option, screen);
+            return 0;
         }
         else{
           // Perform other actions on the start screen.
@@ -152,14 +153,14 @@ void PerformAction(int option, char screen[][COL]){
     case 1:
     {
         //start console game
-        consoleMain();
+        consoleMain(); //in another source file console.cpp
     }
 
     // GARAGE
     case 2:
     {
       // Open garage
-      cout << "GARAGE" << endl;
+      cout << "GARAGE" << endl; //need to know why output after gameover
       exit(1);
       break;
     }
