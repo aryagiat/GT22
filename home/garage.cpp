@@ -3,7 +3,7 @@
 #include <string>  // string
 #include <vector>  // vector
 #include <cstring> // strcpy
-
+#include "../keylog.h" // keylog
 
 using namespace std;
 
