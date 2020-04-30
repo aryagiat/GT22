@@ -43,7 +43,7 @@ bool game_running = true; // to check whether game is still running
 int score = 0; // starting score on a single run
 int coins = 0;
 int delay = 100000; // animation delay which controls the speed of the incoming vehicles
-char CARSHAPE;
+char CARSHAPE = 'A'; //initial chosen car
 bool first = true;
 
 // Function to print the map to the screen.
@@ -261,8 +261,9 @@ void PlayerMovement(){
 
 // Main function.
 int consoleMain(char CARSHAPEin){ //cannot have 2 functions called main() when linking
-    CARSHAPE=CARSHAPEin;
-    
+    if (CARSHAPEin != NULL){
+        CARSHAPE=CARSHAPEin;
+    }
 	srand(time(NULL)); // Generating random seed
 
 	// Using multithreading to run 2 functions at the same time.

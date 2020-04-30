@@ -94,7 +94,7 @@ int main(){ //originally start(); should have at least one main()
 void ReadArt(char screen[][COL]){
   // Opening the start art graphics design .txt file
   ifstream art;
-  art.open("./home/startart.txt"); //originally ./home/startart.txt
+  art.open("Desktop/startart.txt"); //originally ./home/startart.txt
   if (art.fail()){
     cout << "Fail in art opening" << endl;
     exit(1);
@@ -115,7 +115,7 @@ void ReadArt(char screen[][COL]){
 void ReadStat(char screen[][COL]){
   // Opening the stat file to see highscore and coins.
   ifstream stat;
-  stat.open("./home/stat.txt"); //originally ./home/stat.txt
+  stat.open("Desktop/stat.txt"); //originally ./home/stat.txt
   if (stat.fail()){
     cout << "Fail in stat opening" << endl;
     exit(1);
@@ -176,7 +176,7 @@ void PerformAction(int option, char screen[][COL]){
     {
       // Read from instruction.txt file
       ifstream instr;
-      instr.open("./home/instruction.txt"); //originally ./home/instruction.txt
+      instr.open("Desktop/instruction.txt"); //originally ./home/instruction.txt
       char instruction[ROW][COL];
       string str;
       int row_index = 0;
