@@ -21,9 +21,9 @@ void ClearGarageArrow(char garageScreen[26][37],int option){
 void ReadArtGarage(char garageScreen[][37]){
   // Opening the garage art graphics design .txt file
   ifstream garageArt;
-  garageArt.open("Desktop/garageArt.txt"); //originally ./home/garageArt.txt
+  garageArt.open("./home/garageArt.txt"); //originally ./home/garageArt.txt
   if (garageArt.fail()){
-    cout << "Fail in art opening" << endl;
+    cout << "TFail in art opening" << endl;
     exit(1);
   }
 
@@ -54,7 +54,7 @@ int garageMain(){
       for (int i = 0; i < 26; i++){
         cout << garageScreen[i] << endl;
       }
-        
+
 
       // Detecting keyboard presses and perform actions.
       char key;
@@ -110,7 +110,7 @@ int garageMain(){
                 break;
            }
                       break;
-            
+
         }
       } // end of switch
      } // end of while loop

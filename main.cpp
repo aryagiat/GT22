@@ -1,6 +1,6 @@
 #include <iostream>
 #include "keylog.h"
-#include "../home/start.h" //originally ./home/start.h
+#include "./home/start.h" //originally ./home/start.h
 
 using namespace std;
 
