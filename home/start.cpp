@@ -9,14 +9,16 @@
 #include "../keylog.h" // keylog
 #include "../console/console.h" //connect to console.cpp program
 #include "../home/garage.h" //connect to garage.cpp program
+#include "../home/difficulty.h" //connect to garage.cpp program
 
 using namespace std;
 
 
-const int ROW = 25;
+const int ROW = 26; //25
 const int COL = 36;
 
-char CARSHAPEtoConsole;
+char CARSHAPEtoConsole; //transfer carshape to console
+int speed; //transfer starting speed to console
 vector<string> screen; // The start screen graphics
 
 // Function protoypes.
@@ -59,7 +61,7 @@ int main(){ //originally start(); should have at least one main()
       // s button to navigate down
       case 's':
       {
-        if (option != 5)
+        if (option != 6) //5
           option++;
         ClearArrow(); // Clear the arrow
         screen[15+option][11] = '>'; // Move the arrow down
@@ -68,10 +70,10 @@ int main(){ //originally start(); should have at least one main()
       // enter button to perform actions depending on the option.
       case '\n':
       {
-        if (option == 1){
+        if (option == 1){ //just delete if statement later
             // Start Playing.
             PerformAction(option);
-            return 0;
+            //return 0;
         }
         else{
           // Perform other actions on the start screen.
@@ -95,7 +97,7 @@ int main(){ //originally start(); should have at least one main()
 void ReadArt(){
   // Opening the start art graphics design .txt file
   ifstream art;
-  art.open("./home/startart.txt"); //originally ./home/startart.txt
+  art.open("Desktop/startart.txt"); //originally ./home/startart.txt
   if (art.fail()){
     cout << "Fail in art opening" << endl;
     exit(1);
@@ -117,7 +119,7 @@ void ReadArt(){
 void ReadStat(){
   // Opening the stat file to see highscore and coins.
   ifstream stat;
-  stat.open("./home/stat.txt"); //originally ./home/stat.txt
+  stat.open("Desktop/stat.txt"); //originally ./home/stat.txt
   if (stat.fail()){
     cout << "Fail in stat opening" << endl;
     exit(1);
@@ -147,7 +149,7 @@ void ReadStat(){
 
 // Function to clear the arrow on the screen by making column 11 a blank space on rows where there are options. The input of this function is the screen art map.
 void ClearArrow(){
-  for (int i = 16; i < 21; i++){
+  for (int i = 16; i < 22; i++){ //21
     screen[i][11] = ' ';
   }
 }
@@ -161,7 +163,7 @@ void PerformAction(int option){
     case 1:
     {
       //start console game
-      consoleMain(CARSHAPEtoConsole); //in another source file console.cpp
+      consoleMain(CARSHAPEtoConsole, speed); //in another source file console.cpp
       break;
     }
 
@@ -172,13 +174,20 @@ void PerformAction(int option){
       CARSHAPEtoConsole=garageMain();
       break;
     }
+          
+    //Difficulty
+    case 3:
+    {
+        speed = difficultyMain();
+        break;
+    }
 
     // Instructions
-    case 3:
+    case 4:
     {
       // Read from instruction.txt file
       ifstream instr;
-      instr.open("./home/instruction.txt"); //originally ./home/instruction.txt
+      instr.open("Desktop/instruction.txt"); //originally ./home/instruction.txt
       char instruction[ROW][COL];
       string str;
       int row_index = 0;
@@ -198,7 +207,7 @@ void PerformAction(int option){
     }
 
     // Reset game data
-    case 4:
+    case 5:
     {
       // Printing confirmation message
       system("clear"); //Clearing console screen.
@@ -226,7 +235,7 @@ void PerformAction(int option){
     }
 
     // EXIT
-    case 5:
+    case 6:
     {
       // Printing confirmation message
       system("clear"); //Clearing console screen.

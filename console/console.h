@@ -4,6 +4,8 @@
 #include <unistd.h> //usleep
 #include "../keylog.h" //keylog
 #include <pthread.h> //pthread
+#include <fstream>
+#include <string>
 
 using namespace std;
 
@@ -254,16 +256,20 @@ void PlayerMovement(){
 		}
 
 		// Update the coordinates of the car.
-		map[user.y][user.x] = CARSHAPE; // the shape of the car is 'A'.
+		map[user.y][user.x] = CARSHAPE;
 	}
 }
 
 
 // Main function.
-int consoleMain(char CARSHAPEin){ //cannot have 2 functions called main() when linking
+int consoleMain(char CARSHAPEin, int speed){ //cannot have 2 functions called main() when linking
   if (CARSHAPEin != '\0'){
-    CARSHAPE=CARSHAPEin;
+    CARSHAPE = CARSHAPEin;
   }
+  if (speed != '\0'){
+    delay = speed;
+  }
+    
 	srand(time(NULL)); // Generating random seed
 
 	// Using multithreading to run 2 functions at the same time.
@@ -278,5 +284,48 @@ int consoleMain(char CARSHAPEin){ //cannot have 2 functions called main() when l
 	cout << "you crashed!" << endl;
 	cout << "Your score is: " << score - 1 << endl;
 	cout << "Your coin is: " << coins << endl;
-	return 0;
+    
+//----------------------save stats----------------------//
+    
+    ifstream stats;
+    stats.open("Desktop/stat.txt"); //originally ./home/stat.txt
+    
+    int statArray[2], stat_index = 0;
+    if (stats.is_open()){
+      while (getline(stats,line)){ //need to extract from stat!!!!!
+          for(char& c: line){
+              statArray[stat_index]=(int)(c); //extract past stat to be added/subtracted
+          }
+          stat_index++;
+          cout<< statArray[stat_index] << endl;
+        }
+      }
+    stats.close()
+    
+    ofstream stats;
+    stats.open("Desktop/stat.txt"); //originally ./home/stat.txt
+    
+    stats << (score-1) +statArray[0] << endl; //save score to stat.txt
+    stats << coins +statArray[1] << endl; //save coins to stat.txt
+    
+    stats.close();
+    
+    
+    
+//----------------------reset and go back to start----------------------//
+    cout << "Press any key to continue" << endl;
+    char anyKey;
+    anyKey = keylog();
+    if (anyKey != NULL){
+        game_running = true; //get game running again in the next start
+        first = true; //first time running again
+        int delay = speed; // reset animation delay which controls the speed of the incoming vehicles
+        map[user.y][user.x] = ' '; // Remove trail of user.
+        score = 0; //reset
+        coins = 0;
+        user.x = 9; //back to original spawning point
+        user.y = 15;
+        return 0;
+    }
+//----------------------reset and go back to start----------------------//
 }

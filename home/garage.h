@@ -28,7 +28,7 @@ void ClearGarageDot(){
 void ReadArtGarage(){
   // Opening the garage art graphics design .txt file
   ifstream garageArt;
-  garageArt.open("./home/garageArt.txt"); //originally ./home/garageArt.txt
+  garageArt.open("Desktop/garageArt.txt"); //originally ./home/garageArt.txt
   if (garageArt.fail()){
     cout << "Fail in garage art opening" << endl;
     exit(1);
@@ -107,12 +107,12 @@ int garageMain(){
                 garageScreen[17][16] = '*'; // put a star beside chosen
                 break;
             case 3:
-                CARSHAPEtoMain='R';
+                CARSHAPEtoMain='H';
                 ClearGarageDot();// Clear the star
                 garageScreen[18][16] = '*'; // put a star beside chosen
                 break;
             case 4:
-                CARSHAPEtoMain='O';
+                CARSHAPEtoMain='&';
                 ClearGarageDot();// Clear the star
                 garageScreen[19][16] = '*'; // put a star beside chosen
                 break;
@@ -122,8 +122,7 @@ int garageMain(){
                 garageScreen[20][16] = '*'; // put a star beside chosen
                 break;
             case 6:
-                  return CARSHAPEtoMain;
-                //exit=true;
+                return CARSHAPEtoMain;
                 break;
            }
           break;
