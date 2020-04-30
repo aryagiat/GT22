@@ -24,7 +24,7 @@ char map[19][20] = {
 	"#     |     |     #",
 	"#     |     |     #",
 	"#     |     |     #",
-	"#     |  A  |     #",
+	"#     |     |     #",
 	"###################"};
 
 // Coordinate system for the incoming vehicles and the user's car
@@ -43,12 +43,16 @@ bool game_running = true; // to check whether game is still running
 int score = 0; // starting score on a single run
 int coins = 0;
 int delay = 100000; // animation delay which controls the speed of the incoming vehicles
-char CARSHAPE = 'A';
-
+char CARSHAPE;
+bool first = true;
 
 // Function to print the map to the screen.
 void PrintMap(){
-	for (int i = 0; i < 19; i++){
+    if (first == true){
+        map[15][9]=CARSHAPE; //print the selected car in the first frame
+        first = false;
+    }
+    for (int i = 0; i < 19; i++){
 		cout << map[i] << endl;
 	}
 }
@@ -256,7 +260,9 @@ void PlayerMovement(){
 
 
 // Main function.
-int consoleMain(){ //cannot have 2 functions called main() when linking
+int consoleMain(char CARSHAPEin){ //cannot have 2 functions called main() when linking
+    CARSHAPE=CARSHAPEin;
+    
 	srand(time(NULL)); // Generating random seed
 
 	// Using multithreading to run 2 functions at the same time.

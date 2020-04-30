@@ -6,12 +6,15 @@
 #include <cstring> // strcpy
 #include "../keylog.h" // keylog
 #include "../console/console.cpp" //connect to console.cpp program
+#include "../home/garage.cpp" //connect to garage.cpp program
 
 using namespace std;
 
 
 const int ROW = 25;
 const int COL = 37;
+
+char CARSHAPEtoConsole;
 
 // Function protoypes.
 void ReadArt(char screen[][COL]); // Function to read the start screen art. The input is a the screen map
@@ -146,22 +149,24 @@ void ClearArrow(char screen[ROW][COL]){
   }
 }
 
+
+
 // Function that performs action depending on the option selected by user. The input of this function is the option that the user selects and the screen map.
 void PerformAction(int option, char screen[][COL]){
   char confirm;
   switch (option){
     case 1:
     {
-        //start console game
-        consoleMain(); //in another source file console.cpp
+      //start console game
+      consoleMain(CARSHAPEtoConsole); //in another source file console.cpp
+      break;
     }
 
     // GARAGE
     case 2:
     {
-      // Open garage
-      cout << "GARAGE" << endl; //need to know why output after gameover
-      exit(1);
+      // Open garage.cpp file
+      CARSHAPEtoConsole=garageMain();
       break;
     }
 

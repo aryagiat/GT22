@@ -19,6 +19,3 @@ clean:
 	rm -f start main *.o
 
 .PHONY: clean
-
-
-nothing: ./console/console.o  ./console/console.cpp
