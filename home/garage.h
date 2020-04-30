@@ -8,8 +8,9 @@
 using namespace std;
 
 char CARSHAPEtoMain;
+vector<string> garageScreen; // The start screen graphics
 
-void ClearGarageArrow(char garageScreen[26][37],int option){
+void ClearGarageArrow(int option){
     if (option < 7){
         for (int i = 16; i < 21; i++){
             garageScreen[i][14] = ' ';
@@ -18,18 +19,18 @@ void ClearGarageArrow(char garageScreen[26][37],int option){
     }
 }
 
-void ClearGarageDot(char garageScreen[26][37]){
+void ClearGarageDot(){
     for (int i = 16; i < 21; i++){
-        garageScreen[i][18] = ' ';
+        garageScreen[i][16] = ' ';
     }
 }
 
-void ReadArtGarage(char garageScreen[][37]){
+void ReadArtGarage(){
   // Opening the garage art graphics design .txt file
   ifstream garageArt;
-  garageArt.open("Desktop/garageArt.txt"); //originally ./home/garageArt.txt
+  garageArt.open("./home/garageArt.txt"); //originally ./home/garageArt.txt
   if (garageArt.fail()){
-    cout << "Fail in art opening" << endl;
+    cout << "Fail in garage art opening" << endl;
     exit(1);
   }
 
@@ -38,7 +39,8 @@ void ReadArtGarage(char garageScreen[][37]){
   int garageArt_index = 0;
   // reading from the garageArt.txt file
   while (getline(garageArt, gstr)){
-    strcpy(garageScreen[garageArt_index], gstr.c_str()); // converting string into a char array
+    garageScreen.push_back(gstr);
+    //strcpy(garageScreen[garageArt_index], gstr.c_str()); // converting string into a char array
     garageArt_index++;
   }
   garageArt.close();
@@ -48,9 +50,8 @@ void ReadArtGarage(char garageScreen[][37]){
 int garageMain(){
   // Open garage
   // Read from garage.txt file
-  char garageScreen[26][37]; // screen made out of a 26 by 37 character map
-  ReadArtGarage(garageScreen); // reading from garageArt.txt
-    
+  ReadArtGarage(); // reading from garageArt.txt
+
   int option = 1;
   //bool exit = false;
   // Selecting the cars from the garage menu.
@@ -71,7 +72,7 @@ int garageMain(){
       {
         if (option != 1)
           option--;
-          ClearGarageArrow(garageScreen,option); // Clear the arrow
+          ClearGarageArrow(option); // Clear the arrow
           garageScreen[15+option][14] = '>'; // Move the arrow up
           break;
         }
@@ -81,11 +82,11 @@ int garageMain(){
         {
           if (option < 5){
             option++;
-            ClearGarageArrow(garageScreen,option); // Clear the arrow
+            ClearGarageArrow(option); // Clear the arrow
             garageScreen[15+option][14] = '>'; // Move the arrow down
           }else if (option == 5){
             option++;
-            ClearGarageArrow(garageScreen,option); // Clear the arrow
+            ClearGarageArrow(option); // Clear the arrow
             garageScreen[15+option][6] = '>'; // Move the arrow down
           }
           break;
@@ -97,28 +98,28 @@ int garageMain(){
             // Choose car.
             case 1:
                 CARSHAPEtoMain='A';
-                ClearGarageDot(garageScreen); // Clear the star
-                garageScreen[16][18] = '*'; // put a star beside chosen
+                ClearGarageDot(); // Clear the star
+                garageScreen[16][16] = '*'; // put a star beside chosen
                 break;
             case 2:
                 CARSHAPEtoMain='V';
-                ClearGarageDot(garageScreen);// Clear the star
-                garageScreen[17][18] = '*'; // put a star beside chosen
+                ClearGarageDot();// Clear the star
+                garageScreen[17][16] = '*'; // put a star beside chosen
                 break;
             case 3:
                 CARSHAPEtoMain='R';
-                ClearGarageDot(garageScreen);// Clear the star
-                garageScreen[18][18] = '*'; // put a star beside chosen
+                ClearGarageDot();// Clear the star
+                garageScreen[18][16] = '*'; // put a star beside chosen
                 break;
             case 4:
                 CARSHAPEtoMain='O';
-                ClearGarageDot(garageScreen);// Clear the star
-                garageScreen[19][18] = '*'; // put a star beside chosen
+                ClearGarageDot();// Clear the star
+                garageScreen[19][16] = '*'; // put a star beside chosen
                 break;
             case 5:
                 CARSHAPEtoMain='+';
-                ClearGarageDot(garageScreen);// Clear the star
-                garageScreen[20][18] = '*'; // put a star beside chosen
+                ClearGarageDot();// Clear the star
+                garageScreen[20][16] = '*'; // put a star beside chosen
                 break;
             case 6:
                   return CARSHAPEtoMain;

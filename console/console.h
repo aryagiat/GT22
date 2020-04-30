@@ -261,9 +261,9 @@ void PlayerMovement(){
 
 // Main function.
 int consoleMain(char CARSHAPEin){ //cannot have 2 functions called main() when linking
-    if (CARSHAPEin != NULL){
-        CARSHAPE=CARSHAPEin;
-    }
+  if (CARSHAPEin != '\0'){
+    CARSHAPE=CARSHAPEin;
+  }
 	srand(time(NULL)); // Generating random seed
 
 	// Using multithreading to run 2 functions at the same time.

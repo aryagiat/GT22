@@ -5,6 +5,7 @@
 #include <vector>  // vector
 #include <cstring> // strcpy
 #include <pthread.h> //pthread
+#include <vector> // vector
 #include "../keylog.h" // keylog
 #include "../console/console.h" //connect to console.cpp program
 #include "../home/garage.h" //connect to garage.cpp program
@@ -13,31 +14,31 @@ using namespace std;
 
 
 const int ROW = 25;
-const int COL = 37;
+const int COL = 36;
 
 char CARSHAPEtoConsole;
+vector<string> screen; // The start screen graphics
 
 // Function protoypes.
-void ReadArt(char screen[][COL]); // Function to read the start screen art. The input is a the screen map
-void ReadStat(char screen[][COL]); // Function to read highscore and coin. This function also updates the screen map which outputs the highscore and coin. The input is the screen map.
-void ClearArrow(char screen[][COL]); // Function to clear the arrow on the screen by making column 11 a blank space on rows where there are options. The input of this function is the screen art map.
-void PerformAction(int option, char screen[][COL]); // Function that performs action depending on the option selected by user. The input of this function is the option that the user selects and the screen map.
+void ReadArt(); // Function to read the start screen art. The input is a the screen map
+void ReadStat(); // Function to read highscore and coin. This function also updates the screen map which outputs the highscore and coin. The input is the screen map.
+void ClearArrow(); // Function to clear the arrow on the screen by making column 11 a blank space on rows where there are options. The input of this function is the screen art map.
+void PerformAction(int option); // Function that performs action depending on the option selected by user. The input of this function is the option that the user selects and the screen map.
 
 
 // ==================================
 // === main function of start.cpp ===
 int main(){ //originally start(); should have at least one main()
-  char screen[ROW][COL]; // screen made out of a 25 by 37 character map
-  ReadArt(screen); // reading from startart.txt
+  ReadArt(); // reading from startart.txt
 
   int option = 1;
   // Selecting the options from the start menu.
   // 1: Start playing, 2: Open garage, 3: View Instructions, 4: Reset Progress, 5: Exit game
   while (true){
-    ReadStat(screen); // Reading highscore and coin and update to screen.
+    ReadStat(); // Reading highscore and coin and update to screen.
     system("clear"); //Clearing console screen.
     // Printing the start art.
-    for (int i = 0; i < 25; i++){
+    for (int i = 0; i < ROW; i++){
       cout << screen[i] << endl;
     }
 
@@ -50,7 +51,7 @@ int main(){ //originally start(); should have at least one main()
       {
         if (option != 1)
           option--;
-        ClearArrow(screen); // Clear the arrow
+        ClearArrow(); // Clear the arrow
         screen[15+option][11] = '>'; // Move the arrow up
         break;
       }
@@ -60,7 +61,7 @@ int main(){ //originally start(); should have at least one main()
       {
         if (option != 5)
           option++;
-        ClearArrow(screen); // Clear the arrow
+        ClearArrow(); // Clear the arrow
         screen[15+option][11] = '>'; // Move the arrow down
         break;
       }
@@ -69,12 +70,12 @@ int main(){ //originally start(); should have at least one main()
       {
         if (option == 1){
             // Start Playing.
-            PerformAction(option, screen);
+            PerformAction(option);
             return 0;
         }
         else{
           // Perform other actions on the start screen.
-          PerformAction(option, screen);
+          PerformAction(option);
         }
         break;
       }
@@ -91,10 +92,10 @@ int main(){ //originally start(); should have at least one main()
 // ============ Functions ===========
 
 // Function to read the start screen art. The input is a the screen map
-void ReadArt(char screen[][COL]){
+void ReadArt(){
   // Opening the start art graphics design .txt file
   ifstream art;
-  art.open("Desktop/startart.txt"); //originally ./home/startart.txt
+  art.open("./home/startart.txt"); //originally ./home/startart.txt
   if (art.fail()){
     cout << "Fail in art opening" << endl;
     exit(1);
@@ -105,17 +106,18 @@ void ReadArt(char screen[][COL]){
   int art_index = 0;
   // reading from the startart.txt file
   while (getline(art, str)){
-    strcpy(screen[art_index], str.c_str()); // converting string into a char array
+    screen.push_back(str);
+    //strcpy(screen[art_index], str.c_str()); // converting string into a char array
     art_index++;
   }
   art.close();
 }
 
 // Function to read highscore and coin. This function also updates the screen map which outputs the highscore and coin. The input is the screen map.
-void ReadStat(char screen[][COL]){
+void ReadStat(){
   // Opening the stat file to see highscore and coins.
   ifstream stat;
-  stat.open("Desktop/stat.txt"); //originally ./home/stat.txt
+  stat.open("./home/stat.txt"); //originally ./home/stat.txt
   if (stat.fail()){
     cout << "Fail in stat opening" << endl;
     exit(1);
@@ -144,7 +146,7 @@ void ReadStat(char screen[][COL]){
 }
 
 // Function to clear the arrow on the screen by making column 11 a blank space on rows where there are options. The input of this function is the screen art map.
-void ClearArrow(char screen[ROW][COL]){
+void ClearArrow(){
   for (int i = 16; i < 21; i++){
     screen[i][11] = ' ';
   }
@@ -153,7 +155,7 @@ void ClearArrow(char screen[ROW][COL]){
 
 
 // Function that performs action depending on the option selected by user. The input of this function is the option that the user selects and the screen map.
-void PerformAction(int option, char screen[][COL]){
+void PerformAction(int option){
   char confirm;
   switch (option){
     case 1:
@@ -176,7 +178,7 @@ void PerformAction(int option, char screen[][COL]){
     {
       // Read from instruction.txt file
       ifstream instr;
-      instr.open("Desktop/instruction.txt"); //originally ./home/instruction.txt
+      instr.open("./home/instruction.txt"); //originally ./home/instruction.txt
       char instruction[ROW][COL];
       string str;
       int row_index = 0;
