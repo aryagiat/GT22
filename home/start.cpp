@@ -6,8 +6,8 @@
 #include <cstring> // strcpy
 #include <pthread.h> //pthread
 #include "../keylog.h" // keylog
-#include "../console/console.cpp" //connect to console.cpp program
-#include "../home/garage.cpp" //connect to garage.cpp program
+#include "../console/console.h" //connect to console.cpp program
+#include "../home/garage.h" //connect to garage.cpp program
 
 using namespace std;
 
