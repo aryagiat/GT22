@@ -301,12 +301,19 @@ int consoleMain(char CARSHAPEin, int speed){ //cannot have 2 functions called ma
     ofstream ostats;
     ostats.open("Desktop/stat.txt"); //originally ./home/stat.txt
     
+    if ( (score-1) > currentScore ){
+        ostats << score-1 << endl; //save new highscore to stat.txt
+    }else{
+        ostats << currentScore << endl; //save new highscore to stat.txt
+    }
+
     ostats << (score) +currentScore << endl; //save score to stat.txt
+
     ostats << coins +currentCoins; //save coins to stat.txt
     
     ostats.close();
     
-    
+//----------------------save stats----------------------//
     
 //----------------------reset and go back to start----------------------//
     cout << "Press any key to continue" << endl;
