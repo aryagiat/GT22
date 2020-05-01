@@ -8,7 +8,82 @@
 using namespace std;
 
 char CARSHAPEtoMain;
+bool firstInitialCar = true;
 vector<string> garageScreen; // The start screen graphics
+
+void unlockCar(string theUnlockedCar, int score, int coins){
+    ifstream iunlockingFile;
+    iunlockingFile.open("Desktop/availableCars.txt"); //originally ./home/availableCars.txt
+    
+    int unlockingArray_index = 0;
+    string unlockingArray[5], unlockingLine;
+    
+    for (int initializeIndex=0; initializeIndex<5; initializeIndex++){ //initialize the unlockingArray[5] to " " per index
+        unlockingArray[initializeIndex]=" ";
+    }
+    
+    if (iunlockingFile.is_open()){
+      while (getline(iunlockingFile, unlockingLine)){ //extract available cars
+          unlockingArray[unlockingArray_index]=unlockingLine;
+          unlockingArray_index++;
+        }
+      }
+    iunlockingFile.close();
+    
+    for (int insertCarIndex=0; insertCarIndex<5; insertCarIndex++){ //add theUnlockedCar into unlockingArray[5]
+        if (unlockingArray[insertCarIndex]==" "){
+            unlockingArray[insertCarIndex]=theUnlockedCar;
+            break;
+        }
+        //break;
+    }
+    
+    ofstream ounlockingFile;
+    ounlockingFile.open("Desktop/availableCars.txt"); //originally ./home/availableCars.txt
+    
+    for (int unlockingIndex=0; unlockingIndex<4; unlockingIndex++){
+        if (unlockingArray[unlockingIndex]!=" "){
+            ounlockingFile << unlockingArray[unlockingIndex] << endl; //save unlocked cars into empty slot
+        }
+    }
+    if (unlockingArray[4]!=" "){
+        ounlockingFile << unlockingArray[4]; //save the last line without adding an unnecessary line
+    }
+    ounlockingFile.close();
+    
+//----------------------resave stats----------------------//
+    ofstream coinOutFile;
+    coinOutFile.open("Desktop/stat.txt"); //originally ./home/stat.txt
+    
+    coinOutFile << score << endl; //resave stats
+    coinOutFile << coins;
+    
+    coinOutFile.close();
+//----------------------resave stats----------------------//
+}
+
+bool unlocked(string carShape){
+    ifstream unlockedFile;
+    unlockedFile.open("Desktop/availableCars.txt"); //originally ./home/availableCars.txt
+    
+    int unlockedArray_index = 0;
+    string unlockedArray[5], unlockedLine;
+    if (unlockedFile.is_open()){
+      while (getline(unlockedFile, unlockedLine)){ //extract stat to see if car is unlocked or not
+          unlockedArray[unlockedArray_index]=unlockedLine;
+          unlockedArray_index++;
+        }
+      }
+    unlockedFile.close();
+    
+    bool carUnlocked = false;
+    for (int counter=0; counter<5; counter++){
+        if (unlockedArray[counter] == carShape){
+            carUnlocked = true;
+        }
+    }
+    return carUnlocked;
+}
 
 void ClearGarageArrow(int option){
     if (option < 7){
@@ -33,6 +108,7 @@ void ReadArtGarage(){
     cout << "Fail in garage art opening" << endl;
     exit(1);
   }
+    
 
   // Storing the graphics design into the screen map
   string gstr;
@@ -51,7 +127,20 @@ int garageMain(){
   // Open garage
   // Read from garage.txt file
   ReadArtGarage(); // reading from garageArt.txt
-
+    
+  if (firstInitialCar == true){
+    garageScreen[16][16] = '*'; // put a star beside initial chosen car
+    firstInitialCar = false;
+  }
+    
+  ifstream coinFile;
+  coinFile.open("Desktop/stat.txt"); //originally ./home/stat.txt
+  
+  int score, coins;
+  coinFile >> score >> coins;
+  
+  coinFile.close(); //close coinFile
+    
   int option = 1;
   //bool exit = false;
   // Selecting the cars from the garage menu.
@@ -102,24 +191,60 @@ int garageMain(){
                 garageScreen[16][16] = '*'; // put a star beside chosen
                 break;
             case 2:
-                CARSHAPEtoMain='V';
-                ClearGarageDot();// Clear the star
-                garageScreen[17][16] = '*'; // put a star beside chosen
+                  if (unlocked("V") == true){
+                      CARSHAPEtoMain='V';
+                      ClearGarageDot();// Clear the star
+                      garageScreen[17][16] = '*'; // put a star beside chosen
+                  }else if (coins >= 20 and unlocked("V") == false){
+                      CARSHAPEtoMain='V';
+                      ClearGarageDot();// Clear the star
+                      garageScreen[17][16] = '*'; // put a star beside chosen
+                      
+                      coins -= 20; //subtract coins from car price
+                      unlockCar("V", score, coins);
+                  }
                 break;
             case 3:
-                CARSHAPEtoMain='H';
-                ClearGarageDot();// Clear the star
-                garageScreen[18][16] = '*'; // put a star beside chosen
+                if (unlocked("H") == true){
+                      CARSHAPEtoMain='H';
+                      ClearGarageDot();// Clear the star
+                      garageScreen[18][16] = '*'; // put a star beside chosen
+                  }else if (coins >= 50 and unlocked("H") == false){
+                      CARSHAPEtoMain='H';
+                      ClearGarageDot();// Clear the star
+                      garageScreen[18][16] = '*'; // put a star beside chosen
+                      
+                      coins -= 50; //subtract coins from car price
+                      unlockCar("H", score, coins);
+                  }
                 break;
             case 4:
-                CARSHAPEtoMain='&';
-                ClearGarageDot();// Clear the star
-                garageScreen[19][16] = '*'; // put a star beside chosen
+                if (unlocked("&") == true){
+                      CARSHAPEtoMain='&';
+                      ClearGarageDot();// Clear the star
+                      garageScreen[19][16] = '*'; // put a star beside chosen
+                  }else if (coins >= 60 and unlocked("&") == false){
+                      CARSHAPEtoMain='&';
+                      ClearGarageDot();// Clear the star
+                      garageScreen[18][16] = '*'; // put a star beside chosen
+                     
+                      coins -= 60; //subtract coins from car price
+                      unlockCar("&", score, coins);
+                  }
                 break;
             case 5:
-                CARSHAPEtoMain='+';
-                ClearGarageDot();// Clear the star
-                garageScreen[20][16] = '*'; // put a star beside chosen
+                if (unlocked("+") == true){
+                      CARSHAPEtoMain='+';
+                      ClearGarageDot();// Clear the star
+                      garageScreen[20][16] = '*'; // put a star beside chosen
+                  }else if (coins >= 70 and unlocked("+") == false){
+                      CARSHAPEtoMain='+';
+                      ClearGarageDot();// Clear the star
+                      garageScreen[20][16] = '*'; // put a star beside chosen
+                      
+                      coins -= 70; //subtract coins from car price
+                      unlockCar("+", score, coins);
+                  }
                 break;
             case 6:
                 return CARSHAPEtoMain;

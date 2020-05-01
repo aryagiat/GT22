@@ -130,7 +130,7 @@ void ReadStat(){
   stat.close();
   int highscore_size = highscore.size();
   int coin_size = coin.size();
-  // Clearing the space to outpupt the highscore and coin to the screen.
+  // Clearing the space to output the highscore and coin to the screen.
   for (int i = 14; i < COL - 2; i++){
     screen[1][i] = ' ';
   }
@@ -223,7 +223,7 @@ void PerformAction(int option){
       while (confirm != 'n'){
         if (confirm == 'y'){
           ofstream reset;
-          reset.open("./home/stat.txt");
+          reset.open("Desktop/stat.txt"); //originally ./home/stat.txt
           reset << 0 << endl;
           reset << 0;
           reset.close();

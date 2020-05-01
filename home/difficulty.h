@@ -8,6 +8,7 @@
 using namespace std;
 
 int speedtoMain;
+bool firstInitialDifficulty = true;
 vector<string> difficultyScreen; // The start screen graphics
 
 void ClearDifficultyArrow(int option){
@@ -51,6 +52,11 @@ int difficultyMain(){
   // Open difficulty
   // Read from difficulty.txt file
   ReadArtDifficulty(); // reading from difficultyArt.txt
+ 
+  if (firstInitialDifficulty == true){
+    difficultyScreen[16][15] = '*'; // put a star beside initial chosen car
+    firstInitialDifficulty = false;
+  }
 
   int option = 1;
   //bool exit = false;

@@ -287,28 +287,21 @@ int consoleMain(char CARSHAPEin, int speed){ //cannot have 2 functions called ma
     
 //----------------------save stats----------------------//
     
-    ifstream stats;
-    stats.open("Desktop/stat.txt"); //originally ./home/stat.txt
+    ifstream istats;
+    istats.open("Desktop/stat.txt"); //originally ./home/stat.txt
     
-    int statArray[2], stat_index = 0;
-    if (stats.is_open()){
-      while (getline(stats,line)){ //need to extract from stat!!!!!
-          for(char& c: line){
-              statArray[stat_index]=(int)(c); //extract past stat to be added/subtracted
-          }
-          stat_index++;
-          cout<< statArray[stat_index] << endl;
-        }
-      }
-    stats.close()
+    int currentScore, currentCoins;
+    istats >> currentScore >> currentCoins;
     
-    ofstream stats;
-    stats.open("Desktop/stat.txt"); //originally ./home/stat.txt
+    istats.close();
     
-    stats << (score-1) +statArray[0] << endl; //save score to stat.txt
-    stats << coins +statArray[1] << endl; //save coins to stat.txt
+    ofstream ostats;
+    ostats.open("Desktop/stat.txt"); //originally ./home/stat.txt
     
-    stats.close();
+    ostats << (score-1) +currentScore << endl; //save score to stat.txt
+    ostats << coins +currentCoins; //save coins to stat.txt
+    
+    ostats.close();
     
     
     
