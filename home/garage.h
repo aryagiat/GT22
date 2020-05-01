@@ -122,6 +122,34 @@ void ReadArtGarage(){
   garageArt.close();
 }
 
+void lockAndPriceApply(){
+    string theCar;
+    char priceArray[4][6] = {"(20c)", "(50c)", "(60c)", "(70c)"};
+    
+    for (int lockCounter=17; lockCounter<21; lockCounter++){
+        theCar = garageScreen[lockCounter][17];
+        if (not unlocked(theCar)){
+            garageScreen[lockCounter][19] = 'x';
+        }else{
+            garageScreen[lockCounter][19] = ' ';
+        }
+    }
+    
+    for (int costCounter=17; costCounter<21; costCounter++){
+        theCar = garageScreen[costCounter][17];
+        if (not unlocked(theCar)){
+            for (int priceChar=0; priceChar<5; priceChar++){
+                garageScreen[costCounter][21+priceChar] = priceArray[costCounter-17][priceChar];
+            }
+        }else{
+            for (int priceChar=0; priceChar<5; priceChar++){
+                garageScreen[costCounter][21+priceChar] = ' ';
+            }
+        }
+    }
+    
+}
+
 
 int garageMain(){
   // Open garage
@@ -132,6 +160,7 @@ int garageMain(){
     garageScreen[16][16] = '*'; // put a star beside initial chosen car
     firstInitialCar = false;
   }
+  
     
   ifstream coinFile;
   coinFile.open("Desktop/stat.txt"); //originally ./home/stat.txt
@@ -146,6 +175,7 @@ int garageMain(){
   // Selecting the cars from the garage menu.
   while(true){
       system("clear"); //Clearing console screen.
+      lockAndPriceApply(); //applying locks
       // Printing the garage art.
       for (int i = 0; i < 26; i++){
         cout << garageScreen[i] << endl;
@@ -226,7 +256,7 @@ int garageMain(){
                   }else if (coins >= 60 and unlocked("&") == false){
                       CARSHAPEtoMain='&';
                       ClearGarageDot();// Clear the star
-                      garageScreen[18][16] = '*'; // put a star beside chosen
+                      garageScreen[19][16] = '*'; // put a star beside chosen
                      
                       coins -= 60; //subtract coins from car price
                       unlockCar("&", score, coins);
