@@ -285,8 +285,7 @@ int consoleMain(char CARSHAPEin, int speed){ //cannot have 2 functions called ma
 
 	// Once game_running is false
 	cout << "you crashed!" << endl;
-	cout << "Your score is: " << score << endl;
-	cout << "Your coin is: " << coins << endl;
+    
     
 //----------------------save stats----------------------//
     
@@ -301,15 +300,18 @@ int consoleMain(char CARSHAPEin, int speed){ //cannot have 2 functions called ma
     ofstream ostats;
     ostats.open("Desktop/stat.txt"); //originally ./home/stat.txt
     
-    if ( (score-1) > currentScore ){
-        ostats << score-1 << endl; //save new highscore to stat.txt
+    
+    if ( score > currentScore ){
+        ostats << score << endl; //save new highscore to stat.txt
+        cout << "Your score is: " << score;
+        cout << "  (New HighScore!)" << endl;
     }else{
-        ostats << currentScore << endl; //save new highscore to stat.txt
+        ostats << currentScore << endl; //save score to stat.txt
+        cout << "Your score is: " << score << endl;
     }
 
-    ostats << (score) +currentScore << endl; //save score to stat.txt
-
     ostats << coins +currentCoins; //save coins to stat.txt
+    cout << "Your coin is: " << coins << endl;
     
     ostats.close();
     
