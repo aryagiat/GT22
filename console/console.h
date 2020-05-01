@@ -123,6 +123,7 @@ void SingleTraffic(){
 
 		// Checking for collision between the incoming car and the user.
 		if (user.x == car1.x && user.y == car1.y){
+			score--; // Not successful on overtaking the incoming car.
 			game_running = false; // ends the game
 			system("clear");
 		}
@@ -187,7 +188,9 @@ void DoubleTraffic(){
 
 		// Checking for collision between the incoming cars and the user.
 		if ((user.x == car1.x && user.y == car1.y) || (user.x == car2.x && user.y == car1.y)){
+			score -= 2; // not successful in overtaking the car.
 			game_running = false; // ends the game
+			system("clear");
 		}
 
 		// Setting the speed of the incoming vehicle. As the score increase, the speed will be faster.
@@ -282,7 +285,7 @@ int consoleMain(char CARSHAPEin, int speed){ //cannot have 2 functions called ma
 
 	// Once game_running is false
 	cout << "you crashed!" << endl;
-	cout << "Your score is: " << score - 1 << endl;
+	cout << "Your score is: " << score << endl;
 	cout << "Your coin is: " << coins << endl;
     
 //----------------------save stats----------------------//
@@ -298,7 +301,7 @@ int consoleMain(char CARSHAPEin, int speed){ //cannot have 2 functions called ma
     ofstream ostats;
     ostats.open("Desktop/stat.txt"); //originally ./home/stat.txt
     
-    ostats << (score-1) +currentScore << endl; //save score to stat.txt
+    ostats << (score) +currentScore << endl; //save score to stat.txt
     ostats << coins +currentCoins; //save coins to stat.txt
     
     ostats.close();
