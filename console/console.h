@@ -105,10 +105,6 @@ void SingleTraffic(){
 			PrintMap(); // printing the map.
 			cout << "Score: " << score << endl;
 			cout << "Coins: " << coins << endl;
-			cout << "car1.x: " << car1.x << endl;
-			cout << "car1.y: " << car1.y << endl;
-			cout << "user.x: " << user.x << endl;
-			cout << "user.y: " << user.y << endl;
 			map[car1.y][car1.x] = ' '; // Remove the car trail.
 			if (coin.x != 99 && coin.y < 15){
 					map[coin.y][coin.x] = ' '; // Removing coin trail.
@@ -172,10 +168,6 @@ void DoubleTraffic(){
 			PrintMap(); // printing the map.
 			cout << "Score: " << score << endl;
 			cout << "Coins: " << coins << endl;
-			cout << "car1.x: " << car1.x << "  car2.x: " << car2.x << endl;
-			cout << "car.y: " << car1.y << endl;
-			cout << "user.x: " << user.x << endl;
-			cout << "user.y: " << user.y << endl;
 			map[car1.y][car1.x] = ' '; // Remove trail of car1.
 			map[car1.y][car2.x] = ' '; // Remove trail of car2.
 		}
@@ -284,7 +276,7 @@ int consoleMain(char CARSHAPEin, int speed){ //cannot have 2 functions called ma
 	pthread_join(traffic_thread, NULL); // Make sure the threads join at the end.
 
 	// Once game_running is false
-	cout << "you crashed!" << endl;
+	cout << "You Crashed!" << endl;
 
 
 //----------------------save stats----------------------//
@@ -292,7 +284,7 @@ int consoleMain(char CARSHAPEin, int speed){ //cannot have 2 functions called ma
     ifstream istats;
     istats.open("./home/stat.txt"); //originally ./home/stat.txt
 
-    int currentScore, currentCoins;
+    int currentScore, currentCoins; // These variables are previous values of score and coin.
     istats >> currentScore >> currentCoins;
 
     istats.close();
@@ -302,16 +294,18 @@ int consoleMain(char CARSHAPEin, int speed){ //cannot have 2 functions called ma
 
 
     if ( score > currentScore ){
+			// There is a new highscore
         ostats << score << endl; //save new highscore to stat.txt
         cout << "Your score is: " << score;
         cout << "  (New HighScore!)" << endl;
     }else{
+			// No new highscore
         ostats << currentScore << endl; //save score to stat.txt
         cout << "Your score is: " << score << endl;
     }
 
     ostats << coins +currentCoins; //save coins to stat.txt
-    cout << "Your coin is: " << coins << endl;
+    cout << "Coins gained: " << coins << endl;
 
     ostats.close();
 

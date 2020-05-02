@@ -234,6 +234,7 @@ void PerformAction(int option){
           resetCar.open("./home/availableCars.txt");
           resetCar << 'A';
           resetCar.close();
+          CARSHAPEtoConsole = 'A';
 
           break;
         }
