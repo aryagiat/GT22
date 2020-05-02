@@ -3,29 +3,35 @@
 #include <fstream> // ifstream, ofstream
 #include <string>  // string
 #include <vector>  // vector
-#include <cstring> // strcpy
 #include <pthread.h> //pthread
 #include <vector> // vector
 #include "../keylog.h" // keylog
-#include "../console/console.h" //connect to console.cpp program
-#include "../home/garage.h" //connect to garage.cpp program
-#include "../home/difficulty.h" //connect to garage.cpp program
+#include "../console/console.h" //connect to console.h program
+#include "garage.h" //connect to garage.h program
+#include "difficulty.h" //connect to difficulty.h program
 
 using namespace std;
 
-
-const int ROW = 26; //25
+// The number of rows and column of the start art graphics.
+const int ROW = 26;
 const int COL = 36;
 
+// Global Variables
 char CARSHAPEtoConsole; //transfer carshape to console
 int speed; //transfer starting speed to console
 vector<string> screen; // The start screen graphics
+struct Node{ // Linked list to navigate the options.
+  int option;
+  Node * next;
+  Node * prev;
+};
 
 // Function protoypes.
 void ReadArt(); // Function to read the start screen art. The input is a the screen map
 void ReadStat(); // Function to read highscore and coin. This function also updates the screen map which outputs the highscore and coin. The input is the screen map.
 void ClearArrow(); // Function to clear the arrow on the screen by making column 11 a blank space on rows where there are options. The input of this function is the screen art map.
-void PerformAction(int option); // Function that performs action depending on the option selected by user. The input of this function is the option that the user selects and the screen map.
+void PerformAction(int selected_option); // Function that performs action depending on the option selected by user. The input of this function is the option that the user selects and the screen map.
+void OptionListBuild(Node * &head, Node *& tail, int value); // Function to build a doubly circular linked list forward for the options on the start.
 
 
 // ==================================
@@ -33,7 +39,14 @@ void PerformAction(int option); // Function that performs action depending on th
 int main(){ //originally start(); should have at least one main()
   ReadArt(); // reading from startart.txt
 
-  int option = 1;
+  Node * head = NULL;
+  Node * tail = NULL;
+  for (int n = 1; n <= 6; n++){
+    OptionListBuild(head, tail, n);
+  }
+
+  Node * current_option = head;
+  int selected_option = current_option -> option;
   // Selecting the options from the start menu.
   // 1: Start playing, 2: Open garage, 3: View Instructions, 4: Reset Progress, 5: Exit game
   while (true){
@@ -51,34 +64,26 @@ int main(){ //originally start(); should have at least one main()
       // w button to navigate up
       case 'w':
       {
-        if (option != 1)
-          option--;
+        current_option = current_option -> prev;
+        selected_option = current_option -> option;
         ClearArrow(); // Clear the arrow
-        screen[15+option][11] = '>'; // Move the arrow up
+        screen[15+selected_option][11] = '>'; // Move the arrow up
         break;
       }
 
       // s button to navigate down
       case 's':
       {
-        if (option != 6) //5
-          option++;
+        current_option = current_option -> next;
+        selected_option = current_option -> option;
         ClearArrow(); // Clear the arrow
-        screen[15+option][11] = '>'; // Move the arrow down
+        screen[15+selected_option][11] = '>'; // Move the arrow down
         break;
       }
       // enter button to perform actions depending on the option.
       case '\n':
       {
-        if (option == 1){ //just delete if statement later
-            // Start Playing.
-            PerformAction(option);
-            //return 0;
-        }
-        else{
-          // Perform other actions on the start screen.
-          PerformAction(option);
-        }
+        PerformAction(selected_option);
         break;
       }
     } // end of switch
@@ -105,12 +110,9 @@ void ReadArt(){
 
   // Storing the graphics design into the screen map
   string str;
-  int art_index = 0;
   // reading from the startart.txt file
   while (getline(art, str)){
     screen.push_back(str);
-    //strcpy(screen[art_index], str.c_str()); // converting string into a char array
-    art_index++;
   }
   art.close();
 }
@@ -157,9 +159,9 @@ void ClearArrow(){
 
 
 // Function that performs action depending on the option selected by user. The input of this function is the option that the user selects and the screen map.
-void PerformAction(int option){
+void PerformAction(int selected_option){
   char confirm;
-  switch (option){
+  switch (selected_option){
     case 1:
     {
       //start console game
@@ -190,10 +192,8 @@ void PerformAction(int option){
       instr.open("./home/instruction.txt"); //originally ./home/instruction.txt
       vector<string> instruction;
       string str;
-      int row_index = 0;
       while (getline(instr, str)){
         instruction.push_back(str);
-        row_index++;
       }
       instr.close();
       // Outputng to screen
@@ -267,6 +267,23 @@ void PerformAction(int option){
       break;
     }
   }
+}
+
+// Function to build a doubly circular linked list forward for the options on the start.
+void OptionListBuild(Node * &head, Node *& tail, int value){
+  struct Node * p = new Node;
+    p->option = value;
+    p->next = head;
+    p->prev = tail;
+    if (head == NULL){
+      head = p;
+      tail = p;
+    }
+    else{
+      tail->next = p;
+      tail = p;
+      head-> prev = tail;
+    }
 }
 
 // ======== End of Functions ========
