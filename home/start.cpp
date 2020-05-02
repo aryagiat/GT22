@@ -6,9 +6,10 @@
 #include <pthread.h> //pthread
 #include <vector> // vector
 #include "../keylog.h" // keylog
-#include "../console/console.h" //connect to console.h program
-#include "garage.h" //connect to garage.h program
-#include "difficulty.h" //connect to difficulty.h program
+#include "../linkedlist.h" // ListBuild()
+#include "../console/console.h" //connect to console.h program; consoleMain()
+#include "garage.h" //connect to garage.h program; garageMain()
+#include "difficulty.h" //connect to difficulty.h program; difficultyMain()
 
 using namespace std;
 
@@ -20,18 +21,13 @@ const int COL = 36;
 char CARSHAPEtoConsole; //transfer carshape to console
 int speed; //transfer starting speed to console
 vector<string> screen; // The start screen graphics
-struct Node{ // Linked list to navigate the options.
-  int option;
-  Node * next;
-  Node * prev;
-};
+
 
 // Function protoypes.
 void ReadArt(); // Function to read the start screen art. The input is a the screen map
 void ReadStat(); // Function to read highscore and coin. This function also updates the screen map which outputs the highscore and coin. The input is the screen map.
 void ClearArrow(); // Function to clear the arrow on the screen by making column 11 a blank space on rows where there are options. The input of this function is the screen art map.
 void PerformAction(int selected_option); // Function that performs action depending on the option selected by user. The input of this function is the option that the user selects and the screen map.
-void OptionListBuild(Node * &head, Node *& tail, int value); // Function to build a doubly circular linked list forward for the options on the start.
 
 
 // ==================================
@@ -39,14 +35,15 @@ void OptionListBuild(Node * &head, Node *& tail, int value); // Function to buil
 int main(){ //originally start(); should have at least one main()
   ReadArt(); // reading from startart.txt
 
+  // Build a linked list to navigate the options on start.
   Node * head = NULL;
   Node * tail = NULL;
   for (int n = 1; n <= 6; n++){
-    OptionListBuild(head, tail, n);
+    ListBuild(head, tail, n); // Build a circular doubly linked list
   }
 
-  Node * current_option = head;
-  int selected_option = current_option -> option;
+  Node * current_option = head; // The current option that the user is pointing at.
+  int selected_option = current_option -> option; // The value of the option from the structure.
   // Selecting the options from the start menu.
   // 1: Start playing, 2: Open garage, 3: View Instructions, 4: Reset Progress, 5: Exit game
   while (true){
@@ -64,8 +61,8 @@ int main(){ //originally start(); should have at least one main()
       // w button to navigate up
       case 'w':
       {
-        current_option = current_option -> prev;
-        selected_option = current_option -> option;
+        current_option = current_option -> prev; // Navigate 1 option before the current option.
+        selected_option = current_option -> option; // Getting the value of the chosen option.
         ClearArrow(); // Clear the arrow
         screen[15+selected_option][11] = '>'; // Move the arrow up
         break;
@@ -74,8 +71,8 @@ int main(){ //originally start(); should have at least one main()
       // s button to navigate down
       case 's':
       {
-        current_option = current_option -> next;
-        selected_option = current_option -> option;
+        current_option = current_option -> next; // Navigate 1 option after the current option.
+        selected_option = current_option -> option; // Getting the value of the chosen option.
         ClearArrow(); // Clear the arrow
         screen[15+selected_option][11] = '>'; // Move the arrow down
         break;
@@ -267,23 +264,6 @@ void PerformAction(int selected_option){
       break;
     }
   }
-}
-
-// Function to build a doubly circular linked list forward for the options on the start.
-void OptionListBuild(Node * &head, Node *& tail, int value){
-  struct Node * p = new Node;
-    p->option = value;
-    p->next = head;
-    p->prev = tail;
-    if (head == NULL){
-      head = p;
-      tail = p;
-    }
-    else{
-      tail->next = p;
-      tail = p;
-      head-> prev = tail;
-    }
 }
 
 // ======== End of Functions ========

@@ -4,12 +4,19 @@
 #include <vector>  // vector
 #include <cstring> // strcpy
 #include "../keylog.h" // keylog
+#include "../linkedlist.h" // ListBuild()
 
 using namespace std;
 
+// Global Variables.
 char CARSHAPEtoMain;
 bool firstInitialCar = true;
 vector<string> garageScreen; // The garage screen graphics
+struct Node{ // Linked list to navigate the options.
+  int option;
+  Node * next;
+  Node * prev;
+};
 
 // Function to read highscore and coin. This function also updates the screen map which outputs the highscore and coin. The input is the screen map.
 void ReadStatGarage(){
@@ -183,6 +190,7 @@ void lockAndPriceApply(){
 }
 
 
+// Main function of garage.h
 int garageMain(){
   // Open garage
   // Read from garage.txt file
@@ -202,7 +210,14 @@ int garageMain(){
 
   coinFile.close(); //close coinFile
 
-  int option = 1;
+  // Build a linked list to navigate the options on garage.
+  Node * head = NULL;
+  Node * tail = NULL;
+  for (int n = 1; n <= 6; n++){
+    ListBuild(head, tail, n); // Build a circular doubly linked list
+  }
+  Node * current_option = head; // The current option that the user is pointing at.
+  int selected_option = current_option -> option; // The value of the option from the structure.
   //bool exit = false;
   // Selecting the cars from the garage menu.
   while(true){
@@ -222,96 +237,105 @@ int garageMain(){
       // w button to navigate up
       case 'w':
       {
-        if (option != 1)
-          option--;
-          ClearGarageArrow(option); // Clear the arrow
-          garageScreen[15+option][14] = '>'; // Move the arrow up
-          break;
-        }
-
-        // s button to navigate down
-        case 's':
-        {
-          if (option < 5){
-            option++;
-            ClearGarageArrow(option); // Clear the arrow
-            garageScreen[15+option][14] = '>'; // Move the arrow down
-          }else if (option == 5){
-            option++;
-            ClearGarageArrow(option); // Clear the arrow
-            garageScreen[15+option][6] = '>'; // Move the arrow down
+          current_option = current_option -> prev; // Navigate 1 option before the current option.
+          selected_option = current_option -> option; // Getting the value of the chosen option.
+          ClearGarageArrow(selected_option); // Clear the arrow
+          if (selected_option == 6){
+            garageScreen[15+selected_option][6] = '>'; // Move the arrow up
+          }
+          else{
+            garageScreen[15+selected_option][14] = '>'; // Move the arrow up
           }
           break;
         }
-        // enter button to perform actions depending on the option.
-        case '\n':
-        {
-          switch (option){
-            // Choose car.
-            case 1:
-                CARSHAPEtoMain='A';
-                ClearGarageDot(); // Clear the star
-                garageScreen[16][16] = '*'; // put a star beside chosen
-                break;
-            case 2:
-                  if (unlocked("V") == true){
-                      CARSHAPEtoMain='V';
-                      ClearGarageDot();// Clear the star
-                      garageScreen[17][16] = '*'; // put a star beside chosen
-                  }else if (coins >= 20 and unlocked("V") == false){
-                      CARSHAPEtoMain='V';
-                      ClearGarageDot();// Clear the star
-                      garageScreen[17][16] = '*'; // put a star beside chosen
 
-                      coins -= 20; //subtract coins from car price
-                      unlockCar("V", score, coins);
-                  }
-                break;
-            case 3:
-                if (unlocked("H") == true){
-                      CARSHAPEtoMain='H';
-                      ClearGarageDot();// Clear the star
-                      garageScreen[18][16] = '*'; // put a star beside chosen
-                  }else if (coins >= 50 and unlocked("H") == false){
-                      CARSHAPEtoMain='H';
-                      ClearGarageDot();// Clear the star
-                      garageScreen[18][16] = '*'; // put a star beside chosen
+      // s button to navigate down
+      case 's':
+      {
+          current_option = current_option -> next; // Navigate 1 option after the current option.
+          selected_option = current_option -> option; // Getting the value of the chosen option.
+          ClearGarageArrow(selected_option); // Clear the arrow
+          if (selected_option == 6){
+            garageScreen[15+selected_option][6] = '>'; // Move the arrow down
+          }
+          else{
+            garageScreen[15+selected_option][14] = '>'; // Move the arrow down
+          }
+          break;
+        }
+      // enter button to perform actions depending on the option.
+      case '\n':
+      {
+        switch (selected_option){
+          // Choose car.
+          case 1:
+              CARSHAPEtoMain='A';
+              ClearGarageDot(); // Clear the star
+              garageScreen[16][16] = '*'; // put a star beside chosen
+              break;
+          case 2:
+              if (unlocked("V") == true){
+                CARSHAPEtoMain='V';
+                ClearGarageDot();// Clear the star
+                garageScreen[17][16] = '*'; // put a star beside chosen
+              }
+              else if (coins >= 20 and unlocked("V") == false){
+                CARSHAPEtoMain='V';
+                ClearGarageDot();// Clear the star
+                garageScreen[17][16] = '*'; // put a star beside chosen
 
-                      coins -= 50; //subtract coins from car price
-                      unlockCar("H", score, coins);
-                  }
-                break;
-            case 4:
-                if (unlocked("&") == true){
-                      CARSHAPEtoMain='&';
-                      ClearGarageDot();// Clear the star
-                      garageScreen[19][16] = '*'; // put a star beside chosen
-                  }else if (coins >= 60 and unlocked("&") == false){
-                      CARSHAPEtoMain='&';
-                      ClearGarageDot();// Clear the star
-                      garageScreen[19][16] = '*'; // put a star beside chosen
+                coins -= 20; //subtract coins from car price
+                unlockCar("V", score, coins);
+              }
+              break;
+          case 3:
+              if (unlocked("H") == true){
+                CARSHAPEtoMain='H';
+                ClearGarageDot();// Clear the star
+                garageScreen[18][16] = '*'; // put a star beside chosen
+              }
+              else if (coins >= 50 and unlocked("H") == false){
+                CARSHAPEtoMain='H';
+                ClearGarageDot();// Clear the star
+                garageScreen[18][16] = '*'; // put a star beside chosen
 
-                      coins -= 60; //subtract coins from car price
-                      unlockCar("&", score, coins);
-                  }
-                break;
-            case 5:
-                if (unlocked("+") == true){
-                      CARSHAPEtoMain='+';
-                      ClearGarageDot();// Clear the star
-                      garageScreen[20][16] = '*'; // put a star beside chosen
-                  }else if (coins >= 70 and unlocked("+") == false){
-                      CARSHAPEtoMain='+';
-                      ClearGarageDot();// Clear the star
-                      garageScreen[20][16] = '*'; // put a star beside chosen
+                coins -= 50; //subtract coins from car price
+                unlockCar("H", score, coins);
+              }
+              break;
+          case 4:
+              if (unlocked("&") == true){
+                CARSHAPEtoMain='&';
+                ClearGarageDot();// Clear the star
+                garageScreen[19][16] = '*'; // put a star beside chosen
+              }
+              else if (coins >= 60 and unlocked("&") == false){
+                CARSHAPEtoMain='&';
+                ClearGarageDot();// Clear the star
+                garageScreen[19][16] = '*'; // put a star beside chosen
 
-                      coins -= 70; //subtract coins from car price
-                      unlockCar("+", score, coins);
-                  }
-                break;
-            case 6:
-                return CARSHAPEtoMain;
-                break;
+                coins -= 60; //subtract coins from car price
+                unlockCar("&", score, coins);
+              }
+              break;
+          case 5:
+              if (unlocked("+") == true){
+                CARSHAPEtoMain='+';
+                ClearGarageDot();// Clear the star
+                garageScreen[20][16] = '*'; // put a star beside chosen
+              }
+              else if (coins >= 70 and unlocked("+") == false){
+                CARSHAPEtoMain='+';
+                ClearGarageDot();// Clear the star
+                garageScreen[20][16] = '*'; // put a star beside chosen
+
+                coins -= 70; //subtract coins from car price
+                unlockCar("+", score, coins);
+              }
+              break;
+          case 6:
+              return CARSHAPEtoMain;
+              break;
            }
           break;
 
