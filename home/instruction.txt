@@ -1,4 +1,5 @@
 ====================================
+|                                  |   
 |           ABOUT GT22:            |
 |  GT22 is an endless runner car   |
 |  racing game. Overtake as many   |

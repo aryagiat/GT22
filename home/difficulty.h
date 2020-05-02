@@ -29,7 +29,7 @@ void ClearDifficultyDot(){
 void ReadArtDifficulty(){
   // Opening the difficulty art graphics design .txt file
   ifstream difficultyArt;
-  difficultyArt.open("Desktop/difficultyArt.txt"); //originally ./home/difficultyArt.txt
+  difficultyArt.open("./home/difficultyArt.txt"); //originally ./home/difficultyArt.txt
   if (difficultyArt.fail()){
     cout << "Fail in difficulty art opening" << endl;
     exit(1);
@@ -52,7 +52,7 @@ int difficultyMain(){
   // Open difficulty
   // Read from difficulty.txt file
   ReadArtDifficulty(); // reading from difficultyArt.txt
- 
+
   if (firstInitialDifficulty == true){
     difficultyScreen[16][15] = '*'; // put a star beside initial chosen car
     firstInitialDifficulty = false;

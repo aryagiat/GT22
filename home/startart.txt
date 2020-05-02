@@ -16,6 +16,7 @@
 |                                  |
 |          >  START                |
 |             GARAGE               |
+|             DIFFICULTY           |
 |             INSTRUCTIONS         |
 |             RESET                |
 |             EXIT                 |

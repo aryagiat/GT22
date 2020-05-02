@@ -272,7 +272,7 @@ int consoleMain(char CARSHAPEin, int speed){ //cannot have 2 functions called ma
   if (speed != '\0'){
     delay = speed;
   }
-    
+
 	srand(time(NULL)); // Generating random seed
 
 	// Using multithreading to run 2 functions at the same time.
@@ -285,22 +285,22 @@ int consoleMain(char CARSHAPEin, int speed){ //cannot have 2 functions called ma
 
 	// Once game_running is false
 	cout << "you crashed!" << endl;
-    
-    
+
+
 //----------------------save stats----------------------//
-    
+
     ifstream istats;
-    istats.open("Desktop/stat.txt"); //originally ./home/stat.txt
-    
+    istats.open("./home/stat.txt"); //originally ./home/stat.txt
+
     int currentScore, currentCoins;
     istats >> currentScore >> currentCoins;
-    
+
     istats.close();
-    
+
     ofstream ostats;
-    ostats.open("Desktop/stat.txt"); //originally ./home/stat.txt
-    
-    
+    ostats.open("./home/stat.txt"); //originally ./home/stat.txt
+
+
     if ( score > currentScore ){
         ostats << score << endl; //save new highscore to stat.txt
         cout << "Your score is: " << score;
@@ -312,16 +312,16 @@ int consoleMain(char CARSHAPEin, int speed){ //cannot have 2 functions called ma
 
     ostats << coins +currentCoins; //save coins to stat.txt
     cout << "Your coin is: " << coins << endl;
-    
+
     ostats.close();
-    
+
 //----------------------save stats----------------------//
-    
+
 //----------------------reset and go back to start----------------------//
     cout << "Press any key to continue" << endl;
     char anyKey;
     anyKey = keylog();
-    if (anyKey != NULL){
+    if (anyKey != '\0'){
         game_running = true; //get game running again in the next start
         first = true; //first time running again
         int delay = speed; // reset animation delay which controls the speed of the incoming vehicles
