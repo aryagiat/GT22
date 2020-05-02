@@ -4,9 +4,11 @@
 #include <vector>  // vector
 #include <cstring> // strcpy
 #include "../keylog.h" // keylog
+#include "../linkedlist.h" // ListBuild()
 
 using namespace std;
 
+// Global Variables
 int speedtoMain;
 bool firstInitialDifficulty = true;
 vector<string> difficultyScreen; // The start screen graphics
@@ -58,7 +60,14 @@ int difficultyMain(){
     firstInitialDifficulty = false;
   }
 
-  int option = 1;
+  // Build a linked list to navigate the options on difficulyty.
+  Node * head = NULL;
+  Node * tail = NULL;
+  for (int n = 1; n <= 6; n++){
+    ListBuild(head, tail, n); // Build a circular doubly linked list
+  }
+  Node * current_option = head; // The current option that the user is pointing at.
+  int selected_option = current_option -> option; // The value of the option from the structure.
   //bool exit = false;
   // Selecting the cars from the difficulty menu.
   while(true){
@@ -76,31 +85,36 @@ int difficultyMain(){
       // w button to navigate up
       case 'w':
       {
-        if (option != 1)
-          option--;
-          ClearDifficultyArrow(option); // Clear the arrow
-          difficultyScreen[15+option][14] = '>'; // Move the arrow up
-          break;
+        current_option = current_option -> prev; // Navigate 1 option before the current option.
+        selected_option = current_option -> option; // Getting the value of the chosen option.
+        ClearDifficultyArrow(selected_option); // Clear the arrow
+        if (selected_option == 6){
+          difficultyScreen[15+selected_option][6] = '>'; // Move the arrow up
         }
+        else{
+          difficultyScreen[15+selected_option][14] = '>'; // Move the arrow up
+        }
+        break;
+      }
 
-        // s button to navigate down
-        case 's':
-        {
-          if (option < 5){
-            option++;
-            ClearDifficultyArrow(option); // Clear the arrow
-            difficultyScreen[15+option][14] = '>'; // Move the arrow down
-          }else if (option == 5){
-            option++;
-            ClearDifficultyArrow(option); // Clear the arrow
-            difficultyScreen[15+option][6] = '>'; // Move the arrow down
-          }
-          break;
+      // s button to navigate down
+      case 's':
+      {
+        current_option = current_option -> next; // Navigate 1 option after the current option.
+        selected_option = current_option -> option; // Getting the value of the chosen option.
+        ClearDifficultyArrow(selected_option); // Clear the arrow
+        if (selected_option == 6){
+          difficultyScreen[15+selected_option][6] = '>'; // Move the arrow down
         }
-        // enter button to perform actions depending on the option.
-        case '\n':
+        else{
+          difficultyScreen[15+selected_option][14] = '>'; // Move the arrow down
+        }
+        break;
+      }
+      // enter button to perform actions depending on the option.
+      case '\n':
         {
-          switch (option){
+          switch (selected_option){
             // Choose starting speed.
             case 1:
                 speedtoMain=100000;
