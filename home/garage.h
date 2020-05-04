@@ -18,11 +18,12 @@ struct Node{ // Linked list to navigate the options.
   Node * prev;
 };
 
+
 // Function to read highscore and coin. This function also updates the screen map which outputs the highscore and coin. The input is the screen map.
 void ReadStatGarage(){
   // Opening the stat file to see highscore and coins.
   ifstream stat;
-  stat.open("./home/stat.txt"); //originally ./home/stat.txt
+  stat.open("Desktop/stat.txt"); //originally ./home/stat.txt
   if (stat.fail()){
     cout << "Fail in stat opening" << endl;
     exit(1);
@@ -52,7 +53,7 @@ void ReadStatGarage(){
 
 void unlockCar(string theUnlockedCar, int score, int coins){
     ifstream iunlockingFile;
-    iunlockingFile.open("./home/availableCars.txt"); //originally ./home/availableCars.txt
+    iunlockingFile.open("Desktop/availableCars.txt"); //originally ./home/availableCars.txt
 
     int unlockingArray_index = 0;
     string unlockingArray[5], unlockingLine;
@@ -78,7 +79,7 @@ void unlockCar(string theUnlockedCar, int score, int coins){
     }
 
     ofstream ounlockingFile;
-    ounlockingFile.open("./home/availableCars.txt"); //originally ./home/availableCars.txt
+    ounlockingFile.open("Desktop/availableCars.txt"); //originally ./home/availableCars.txt
 
     for (int unlockingIndex=0; unlockingIndex<4; unlockingIndex++){
         if (unlockingArray[unlockingIndex]!=" "){
@@ -92,7 +93,7 @@ void unlockCar(string theUnlockedCar, int score, int coins){
 
 //----------------------resave stats----------------------//
     ofstream coinOutFile;
-    coinOutFile.open("./home/stat.txt"); //originally ./home/stat.txt
+    coinOutFile.open("Desktop/stat.txt"); //originally ./home/stat.txt
 
     coinOutFile << score << endl; //resave stats
     coinOutFile << coins;
@@ -103,7 +104,7 @@ void unlockCar(string theUnlockedCar, int score, int coins){
 
 bool unlocked(string carShape){
     ifstream unlockedFile;
-    unlockedFile.open("./home/availableCars.txt"); //originally ./home/availableCars.txt
+    unlockedFile.open("Desktop/availableCars.txt"); //originally ./home/availableCars.txt
 
     int unlockedArray_index = 0;
     string unlockedArray[5], unlockedLine;
@@ -142,7 +143,7 @@ void ClearGarageDot(){
 void ReadArtGarage(){
   // Opening the garage art graphics design .txt file
   ifstream garageArt;
-  garageArt.open("./home/garageArt.txt"); //originally ./home/garageArt.txt
+  garageArt.open("Desktop/garageArt.txt"); //originally ./home/garageArt.txt
   if (garageArt.fail()){
     cout << "Fail in garage art opening" << endl;
     exit(1);
@@ -189,6 +190,12 @@ void lockAndPriceApply(){
 
 }
 
+void resetCarData(){
+    CARSHAPEtoMain = 'A';
+    ClearGarageDot(); // Clear the star
+    garageScreen[16][16] = '*'; // put a star beside 'A' as the beginning car
+    garageScreen[16][14] = '>'; // put a star beside 'A' as the beginning car
+}
 
 // Main function of garage.h
 int garageMain(){
@@ -203,7 +210,7 @@ int garageMain(){
 
 
   ifstream coinFile;
-  coinFile.open("./home/stat.txt"); //originally ./home/stat.txt
+  coinFile.open("Desktop/stat.txt"); //originally ./home/stat.txt
 
   int score, coins;
   coinFile >> score >> coins;
@@ -334,8 +341,10 @@ int garageMain(){
               }
               break;
           case 6:
+              ClearGarageArrow(1);
+              garageScreen[16][14] = '>'; // Move the arrow to the top beside 'A'
               return CARSHAPEtoMain;
-              break;
+              //break;
            }
           break;
 

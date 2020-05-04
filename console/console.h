@@ -282,7 +282,7 @@ int consoleMain(char CARSHAPEin, int speed){ //cannot have 2 functions called ma
 //----------------------save stats----------------------//
 
     ifstream istats;
-    istats.open("./home/stat.txt"); //originally ./home/stat.txt
+    istats.open("Desktop/stat.txt"); //originally ./home/stat.txt
 
     int currentScore, currentCoins; // These variables are previous values of score and coin.
     istats >> currentScore >> currentCoins;
@@ -290,7 +290,7 @@ int consoleMain(char CARSHAPEin, int speed){ //cannot have 2 functions called ma
     istats.close();
 
     ofstream ostats;
-    ostats.open("./home/stat.txt"); //originally ./home/stat.txt
+    ostats.open("Desktop/stat.txt"); //originally ./home/stat.txt
 
 
     if ( score > currentScore ){

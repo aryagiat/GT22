@@ -31,7 +31,7 @@ void ClearDifficultyDot(){
 void ReadArtDifficulty(){
   // Opening the difficulty art graphics design .txt file
   ifstream difficultyArt;
-  difficultyArt.open("./home/difficultyArt.txt"); //originally ./home/difficultyArt.txt
+  difficultyArt.open("Desktop/difficultyArt.txt"); //originally ./home/difficultyArt.txt
   if (difficultyArt.fail()){
     cout << "Fail in difficulty art opening" << endl;
     exit(1);
@@ -49,6 +49,12 @@ void ReadArtDifficulty(){
   difficultyArt.close();
 }
 
+void resetDifficultyData(){
+    speedtoMain=100000;
+    ClearDifficultyDot(); // Clear the star
+    difficultyScreen[16][15] = '*'; // put a star beside 'EASY' as the beginning difficulty
+    difficultyScreen[16][14] = '>'; // put an arrow beside 'EASY' as the beginning difficulty
+}
 
 int difficultyMain(){
   // Open difficulty
@@ -56,7 +62,7 @@ int difficultyMain(){
   ReadArtDifficulty(); // reading from difficultyArt.txt
 
   if (firstInitialDifficulty == true){
-    difficultyScreen[16][15] = '*'; // put a star beside initial chosen car
+    difficultyScreen[16][15] = '*'; // put a star beside initial chosen difficulty
     firstInitialDifficulty = false;
   }
 
@@ -122,17 +128,17 @@ int difficultyMain(){
                 difficultyScreen[16][15] = '*'; // put a star beside chosen
                 break;
             case 2:
-                speedtoMain=500;
+                speedtoMain=10000;
                 ClearDifficultyDot();// Clear the star
                 difficultyScreen[17][15] = '*'; // put a star beside chosen
                 break;
             case 3:
-                speedtoMain=100;
+                speedtoMain=1000;
                 ClearDifficultyDot();// Clear the star
                 difficultyScreen[18][15] = '*'; // put a star beside chosen
                 break;
             case 4:
-                speedtoMain=10;
+                speedtoMain=100;
                 ClearDifficultyDot();// Clear the star
                 difficultyScreen[19][15] = '*'; // put a star beside chosen
                 break;
@@ -142,8 +148,10 @@ int difficultyMain(){
                 difficultyScreen[20][15] = '*'; // put a star beside chosen
                 break;
             case 6:
+                ClearDifficultyArrow(1);
+                difficultyScreen[16][14] = '>'; // Move the arrow to the top beside 'EASY'
                 return speedtoMain;
-                break;
+                //break;
            }
           break;
 
