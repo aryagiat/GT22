@@ -23,7 +23,7 @@ Players can collect different cars from the shop which can be acquired by collec
     - Random placements of incoming traffic on one of the 3 lanes;
     - Random number of incoming traffic at once (1 or 2 cars only at once);
     - Random placement of a coin on one of the 3 lanes and on a random y-coordinate;
-    - Random placement of turbo boost (i.e. extra points);
+    - Random placement of turbo boost (i.e. extra points); (??)
     
 **2.  Data structure for storing game status:**
     
@@ -35,9 +35,9 @@ Players can collect different cars from the shop which can be acquired by collec
     
 **3.  Dynamic memory management:**
 
-    - //Dynamic array to keep the highscore and coins obtained and to output those to the screen map\\.
+    - //Dynamic array to keep the highscore and coins obtained and to output those to the screen map\\. (??)
     - Vector STL to copy and paste the start screen graphics from a txt file to the console screen.
-    - Queue to address a revolving garage. E.g.- the latest chosen car will be on the far left of the screen (index 0) and the most seldomly used car at the far right of the screen (index max).
+    - Linked lists to let revolving occur when reaching the top-most or bottom-most option in any menu screen.
     
 **4.  File input / output:**
 
