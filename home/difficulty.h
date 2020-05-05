@@ -3,14 +3,15 @@
 #include <string>  // string
 #include <vector>  // vector
 #include <cstring> // strcpy
-#include "../keylog.h" // keylog
-#include "../linkedlist.h" // ListBuild()
+#include "../game_library/keylog.h" // keylog
+#include "../game_library/linkedlist.h" // ListBuild()
 
 using namespace std;
 
 // Global Variables
 int speedtoMain;
 bool firstInitialDifficulty = true;
+bool firstOpenD = true;
 vector<string> difficultyScreen; // The start screen graphics
 
 void ClearDifficultyArrow(int option){
@@ -31,7 +32,7 @@ void ClearDifficultyDot(){
 void ReadArtDifficulty(){
   // Opening the difficulty art graphics design .txt file
   ifstream difficultyArt;
-  difficultyArt.open("Desktop/difficultyArt.txt"); //originally ./home/difficultyArt.txt
+  difficultyArt.open("./home/difficultyArt.txt"); //originally ./home/difficultyArt.txt
   if (difficultyArt.fail()){
     cout << "Fail in difficulty art opening" << endl;
     exit(1);
@@ -49,17 +50,22 @@ void ReadArtDifficulty(){
   difficultyArt.close();
 }
 
-void resetDifficultyData(){
+int resetDifficultyData(){
     speedtoMain=100000;
-    ClearDifficultyDot(); // Clear the star
-    difficultyScreen[16][15] = '*'; // put a star beside 'EASY' as the beginning difficulty
-    difficultyScreen[16][14] = '>'; // put an arrow beside 'EASY' as the beginning difficulty
+		if (!firstOpenD){
+		    ClearDifficultyDot(); // Clear the star
+    		difficultyScreen[16][15] = '*'; // put a star beside 'EASY' as the beginning difficulty
+    		difficultyScreen[16][14] = '>'; // put an arrow beside 'EASY' as the beginning difficulty
+		}
+		return speedtoMain;
 }
 
 int difficultyMain(){
   // Open difficulty
   // Read from difficulty.txt file
   ReadArtDifficulty(); // reading from difficultyArt.txt
+	
+	firstOpenD = false;
 
   if (firstInitialDifficulty == true){
     difficultyScreen[16][15] = '*'; // put a star beside initial chosen difficulty

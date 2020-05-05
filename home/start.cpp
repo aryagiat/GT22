@@ -5,8 +5,8 @@
 #include <vector>  // vector
 #include <pthread.h> //pthread
 #include <vector> // vector
-#include "../keylog.h" // keylog
-#include "../linkedlist.h" // ListBuild()
+#include "../game_library/keylog.h" // keylog
+#include "../game_library/linkedlist.h" // ListBuild()
 #include "../console/console.h" //connect to console.h program; consoleMain()
 #include "garage.h" //connect to garage.h program; garageMain()
 #include "difficulty.h" //connect to difficulty.h program; difficultyMain()
@@ -99,7 +99,7 @@ int main(){ //originally start(); should have at least one main()
 void ReadArt(){
   // Opening the start art graphics design .txt file
   ifstream art;
-  art.open("Desktop/startart.txt"); //originally ./home/startart.txt
+  art.open("./home/startart.txt"); //originally ./home/startart.txt
   if (art.fail()){
     cout << "Fail in art opening" << endl;
     exit(1);
@@ -118,7 +118,7 @@ void ReadArt(){
 void ReadStat(){
   // Opening the stat file to see highscore and coins.
   ifstream stat;
-  stat.open("Desktop/stat.txt"); //originally ./home/stat.txt
+  stat.open("./home/stat.txt"); //originally ./home/stat.txt
   if (stat.fail()){
     cout << "Fail in stat opening" << endl;
     exit(1);
@@ -186,7 +186,7 @@ void PerformAction(int selected_option){
     {
       // Read from instruction.txt file
       ifstream instr;
-      instr.open("Desktop/instruction.txt"); //originally ./home/instruction.txt
+      instr.open("./home/instruction.txt"); //originally ./home/instruction.txt
       vector<string> instruction;
       string str;
       while (getline(instr, str)){
@@ -221,19 +221,18 @@ void PerformAction(int selected_option){
         if (confirm == 'y'){
           // Reset the highscore and coins.
           ofstream reset;
-          reset.open("Desktop/stat.txt"); //originally ./home/stat.txt
+          reset.open("./home/stat.txt"); //originally ./home/stat.txt
           reset << 0 << endl;
           reset << 0;
           reset.close();
 
           // Reset the acquired cars.
           ofstream resetCar;
-          resetCar.open("Desktop/availableCars.txt");
+          resetCar.open("./home/availableCars.txt");
           resetCar << 'A';
           resetCar.close();
-          CARSHAPEtoConsole = 'A';
-          resetCarData();
-          resetDifficultyData();
+          CARSHAPEtoConsole = resetCarData();
+          speed = resetDifficultyData();
 
           break;
         }

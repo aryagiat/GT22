@@ -2,7 +2,7 @@
 #include <cstdlib>  //rand, srand
 #include <ctime>    //time
 #include <unistd.h> //usleep
-#include "../keylog.h" //keylog
+#include "../game_library/keylog.h" //keylog
 #include <pthread.h> //pthread
 #include <fstream>
 #include <string>
@@ -103,6 +103,7 @@ void SingleTraffic(){
 					map[coin.y][coin.x] = '.'; // Spawning the coin at its respective x and y coordinates.
 			}
 			PrintMap(); // printing the map.
+			cout << "Press \'a\' or \'d\' to move" << endl << endl;
 			cout << "Score: " << score << endl;
 			cout << "Coins: " << coins << endl;
 			map[car1.y][car1.x] = ' '; // Remove the car trail.
@@ -166,6 +167,7 @@ void DoubleTraffic(){
 			map[car1.y][car1.x] = '^'; // Spawning car1 at its coordinates
 			map[car1.y][car2.x] = '^'; // Spawning car2 at its coordinates
 			PrintMap(); // printing the map.
+			cout << "Press \'a\' or \'d\' to move" << endl << endl;
 			cout << "Score: " << score << endl;
 			cout << "Coins: " << coins << endl;
 			map[car1.y][car1.x] = ' '; // Remove trail of car1.
@@ -282,7 +284,7 @@ int consoleMain(char CARSHAPEin, int speed){ //cannot have 2 functions called ma
 //----------------------save stats----------------------//
 
     ifstream istats;
-    istats.open("Desktop/stat.txt"); //originally ./home/stat.txt
+    istats.open("./home/stat.txt"); //originally ./home/stat.txt
 
     int currentScore, currentCoins; // These variables are previous values of score and coin.
     istats >> currentScore >> currentCoins;
@@ -290,7 +292,7 @@ int consoleMain(char CARSHAPEin, int speed){ //cannot have 2 functions called ma
     istats.close();
 
     ofstream ostats;
-    ostats.open("Desktop/stat.txt"); //originally ./home/stat.txt
+    ostats.open("./home/stat.txt"); //originally ./home/stat.txt
 
 
     if ( score > currentScore ){
