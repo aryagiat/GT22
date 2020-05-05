@@ -14,7 +14,11 @@ GT22 is an endless runner car racing game. The goal of the game is to overtake a
 There are three lanes in which the player will be on one of the lanes. There will be incoming traffic randomly appearing in one of the three lanes. Overtake the incoming cars by changing lanes. Each overtaken car results in an additional point. The run ends when the player crashes the car with the incoming traffic.
 Players can collect different cars from the shop which can be acquired by collecting coins which randomly spawns on one of the three lanes. 
 
-
+**How to launch game:**
+1) Open console on the game directory
+2) type "make GT22" to console
+3) type "./GT22" to console
+4) Enjoy game!
 
 **Features / Functions:**
 
