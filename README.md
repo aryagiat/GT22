@@ -16,12 +16,12 @@ Players can collect different cars from the shop which can be acquired by collec
 
 **How to launch game:**
 1) Method 1: using run.sh
-    a) Open terminal on the game directory
-    b) Type "./run.sh"
+    - Open terminal on the game directory
+    - Type "./run.sh"
 2) Method 2: using make
-    a) Open terminal on the game directory
-    b) type "make GT22" on terminal
-    c) type "./GT22" on terminal
+    - Open terminal on the game directory
+    - type "make GT22" on terminal
+    - type "./GT22" on terminal
     
 
 **Features / Functions:**
