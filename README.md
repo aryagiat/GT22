@@ -15,10 +15,14 @@ There are three lanes in which the player will be on one of the lanes. There wil
 Players can collect different cars from the shop which can be acquired by collecting coins which randomly spawns on one of the three lanes. 
 
 **How to launch game:**
-1) Open console on the game directory
-2) type "make GT22" to console
-3) type "./GT22" to console
-4) Enjoy game!
+1) Method 1: using run.sh
+    a) Open terminal on the game directory
+    b) Type "./run.sh"
+2) Method 2: using make
+    a) Open terminal on the game directory
+    b) type "make GT22" on terminal
+    c) type "./GT22" on terminal
+    
 
 **Features / Functions:**
 
