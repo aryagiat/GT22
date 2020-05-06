@@ -1,5 +1,5 @@
 // keylog.cpp
-// Inspired by niko from https://stackoverflow.com/questions/7469139/what-is-the-equivalent-to-getch-getche-in-linux
+// Our version inspired by niko from https://stackoverflow.com/questions/7469139/what-is-the-equivalent-to-getch-getche-in-linux
 
 #include <termios.h>
 #include <iostream>
