@@ -56,7 +56,7 @@ int resetDifficultyData(){
     		difficultyScreen[16][15] = '*'; // put a star beside 'EASY' as the beginning difficulty
     		difficultyScreen[16][14] = '>'; // put an arrow beside 'EASY' as the beginning difficulty
 		}
-		return speedtoMain;
+		return speedtoMain; //give reseted speed/difficulty to start.cpp
 }
 
 int difficultyMain(){
@@ -155,8 +155,7 @@ int difficultyMain(){
             case 6:
                 ClearDifficultyArrow(1);
                 difficultyScreen[16][14] = '>'; // Move the arrow to the top beside 'EASY'
-                return speedtoMain;
-                //break;
+                return speedtoMain; //gives chosen speed/difficulty to start.cpp
            }
           break;
 
