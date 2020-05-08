@@ -214,7 +214,7 @@ int garageMain(){
 	firstOpen = false;	// not first time opening anymore
 
   ifstream coinFile;
-  coinFile.open("./home/stat.txt"); //originally ./home/stat.txt
+  coinFile.open("./home/stat.txt");
 
   int score, coins;
   coinFile >> score >> coins;
@@ -347,8 +347,7 @@ int garageMain(){
           case 6:
               ClearGarageArrow(1);
               garageScreen[16][14] = '>'; // Move the arrow to the top beside 'A'
-              return CARSHAPEtoMain;
-              //break;
+              return CARSHAPEtoMain; //gives the car symbol chosen to start.cpp
            }
           break;
 
