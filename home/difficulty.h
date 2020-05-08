@@ -9,12 +9,12 @@
 using namespace std;
 
 // Global Variables
-int speedtoMain;
-bool firstInitialDifficulty = true;
+int speedtoMain; //to pass the speed/difficulty wanted to start.cpp
+bool firstInitialDifficulty = true; //to check whether the code was firstly opened or not
 bool firstOpenD = true;
 vector<string> difficultyScreen; // The start screen graphics
 
-void ClearDifficultyArrow(int option){
+void ClearDifficultyArrow(int option){ //clear the preceding arrow mark for every screen refresh
     if (option < 7){
         for (int i = 16; i < 21; i++){
             difficultyScreen[i][14] = ' ';
@@ -23,7 +23,7 @@ void ClearDifficultyArrow(int option){
     }
 }
 
-void ClearDifficultyDot(){
+void ClearDifficultyDot(){ //clear the preceding star mark for every difficulty change
     for (int i = 16; i < 21; i++){
         difficultyScreen[i][15] = ' ';
     }
@@ -44,7 +44,6 @@ void ReadArtDifficulty(){
   // reading from the difficultyArt.txt file
   while (getline(difficultyArt, gstr)){
     difficultyScreen.push_back(gstr);
-    //strcpy(difficultyScreen[difficultyArt_index], gstr.c_str()); // converting string into a char array
     difficultyArt_index++;
   }
   difficultyArt.close();
@@ -65,7 +64,7 @@ int difficultyMain(){
   // Read from difficulty.txt file
   ReadArtDifficulty(); // reading from difficultyArt.txt
 	
-	firstOpenD = false;
+	firstOpenD = false; //difficulty.h not firstly opened anymore
 
   if (firstInitialDifficulty == true){
     difficultyScreen[16][15] = '*'; // put a star beside initial chosen difficulty
