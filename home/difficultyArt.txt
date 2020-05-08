@@ -21,6 +21,6 @@
 |               INSANE             |
 |       return to home screen      |
 |				   |
-|   *use 'w' and 's' to navigate*  |
-|      *press enter to select*     |
+|   *use 'W' and 'S' to navigate*  |
+|      *press ENTER to select*     |
 ====================================
