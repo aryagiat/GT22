@@ -51,7 +51,7 @@ Players can collect different cars from the shop which can be acquired by collec
     - Vector class in STL to copy and paste each line of the garageart screen graphics from a .txt file to the console screen.
     - Vector class in STL to copy and paste each line of the instructions screen graphics from a .txt file to the console screen.
     - Vector class in STL to copy and paste each line of the difficulty screen graphics from a .txt file to the console screen.
-    - Doubly Circular Linked lists to let revolving occur when reaching the top-most or bottom-most option in any menu screen.
+    - Double Circular Linked lists to let revolving occur when reaching the top-most or bottom-most option in any menu screen.
     
 **4.  File input / output:**
 
@@ -111,9 +111,9 @@ Players can collect different cars from the shop which can be acquired by collec
     - Key press detection header (keylog.h).
       - To define the keylog() function in keylog.cpp which returns a character
     
-    - Doubly circular linked list creator program (linkedlist.cpp).
+    - Double circular linked list creator program (linkedlist.cpp).
       - Making a linked list which is doubly circular
       - Stores an integer value on each node, stores the next node, and stores the previous node
      
-    - Doubly circular linked list creator header (linkedlist.h).
+    - Double circular linked list creator header (linkedlist.h).
       - To define the void ListBuild() function in linkedlist.cpp which has a struct Node and integer parameter
